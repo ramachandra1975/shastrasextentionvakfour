@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bhāṣya Tradition as Lineage · Series A · Part Five · Cultural Musings</title>
+<style>
+  :root {
+    --parchment: #f6f0e3;
+    --parchment-deep: #ece2cc;
+    --parchment-edge: #e1d3ae;
+    --ink: #2a2018;
+    --ink-soft: #4a3f30;
+    --crimson: #8a2620;
+    --crimson-deep: #6b1916;
+    --gold: #a9762f;
+    --gold-soft: #c79a4b;
+    --line: #cdbb8e;
+    --shadow: rgba(60, 40, 20, 0.18);
+    --sandhi: #3c5a4a;
+    --sandhi-soft: #5d7e6c;
+    --vaikhari: #7a4a2a;
+    --madhyama: #6b4a8a;
+    --pasyanti: #2a6b78;
+    --para: #8a2620;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Georgia', 'Tinos', 'Noto Serif', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(169, 118, 47, 0.06), transparent 60%),
+      radial-gradient(ellipse at 85% 80%, rgba(138, 38, 32, 0.05), transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a { color: var(--crimson); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .skt { font-family: 'Noto Sans', 'Tinos', serif; }
+
+  /* ===== Layout shell ===== */
+  .shell {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 980px) {
+    .shell { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Sidebar ===== */
+  .sidebar {
+    background: linear-gradient(180deg, #fbf7ee, var(--parchment-deep));
+    border-right: 1px solid var(--line);
+    padding: 28px 22px 60px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 980px) {
+    .sidebar { position: relative; height: auto; border-right: none; border-bottom: 2px solid var(--gold); }
+  }
+
+  .brand {
+    text-align: center;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .brand .mark {
+    font-size: 1.5rem;
+    letter-spacing: 0.18em;
+    color: var(--crimson-deep);
+    font-weight: 700;
+  }
+
+  .brand .sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-top: 5px;
+    text-transform: uppercase;
+  }
+
+  .series-tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.7rem;
+    background: var(--crimson-deep);
+    color: var(--parchment);
+    padding: 3px 11px;
+    border-radius: 3px;
+    letter-spacing: 0.06em;
+  }
+
+  .nav-group { margin-bottom: 22px; }
+
+  .nav-group-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+
+  .nav-group ul { list-style: none; margin: 0; padding: 0; }
+
+  .nav-group li a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .nav-group li a:hover {
+    background: rgba(169, 118, 47, 0.12);
+    border-left-color: var(--gold);
+    text-decoration: none;
+    color: var(--crimson-deep);
+  }
+
+  .nav-group.parts li a.current {
+    background: rgba(138, 38, 32, 0.1);
+    border-left-color: var(--crimson);
+    color: var(--crimson-deep);
+    font-weight: 700;
+  }
+
+  .nav-group.parts li a.future { font-style: italic; opacity: 0.65; }
+
+  .sidebar-skt {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line);
+    font-size: 0.85rem;
+    color: var(--gold-soft);
+    line-height: 1.5;
+  }
+
+  /* ===== Main column ===== */
+  .main { min-width: 0; }
+
+  .topstrip {
+    background: var(--crimson-deep);
+    color: var(--parchment);
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 7px 14px;
+  }
+
+  .hero {
+    background:
+      linear-gradient(180deg, rgba(42,32,24,0.78), rgba(42,32,24,0.92)),
+      repeating-linear-gradient(45deg, rgba(169,118,47,0.05) 0 2px, transparent 2px 26px);
+    background-color: #2a2018;
+    color: var(--parchment);
+    padding: 64px 8vw 52px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 14px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+    margin: 0 0 14px;
+    line-height: 1.16;
+    font-weight: 700;
+    color: #fbf3df;
+  }
+
+  .hero .subtitle {
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--parchment-deep);
+    font-style: italic;
+    max-width: 760px;
+    line-height: 1.5;
+    margin-bottom: 26px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(199,154,75,0.35);
+  }
+
+  .hero-meta .item .label {
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .hero-meta .item .value { font-size: 0.92rem; color: var(--parchment); }
+
+  .hero-skt {
+    margin-top: 28px;
+    font-size: 1.05rem;
+    color: var(--gold-soft);
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== Content container ===== */
+  .content { padding: 48px 8vw 90px; max-width: 920px; }
+
+  .divider {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.4rem;
+    margin: 44px 0;
+    letter-spacing: 0.4em;
+  }
+
+  /* ===== Section headers ===== */
+  .section-num {
+    font-family: 'Times New Roman', serif;
+    font-size: 3.6rem;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: -6px;
+  }
+
+  h2.section-title {
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    color: var(--crimson-deep);
+    margin: 0 0 28px;
+    line-height: 1.3;
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 14px;
+  }
+
+  h3 {
+    color: var(--crimson-deep);
+    font-size: 1.22rem;
+    margin: 34px 0 12px;
+    border-left: 4px solid var(--gold);
+    padding-left: 12px;
+  }
+
+  h4 {
+    color: var(--ink-soft);
+    font-size: 1.03rem;
+    margin: 22px 0 8px;
+    font-style: italic;
+  }
+
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+
+  .lede {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    border-left: 3px solid var(--line);
+    padding-left: 16px;
+    margin-bottom: 26px;
+  }
+
+  /* ===== Verse blocks ===== */
+  .verse {
+    background: var(--parchment-deep);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 22px 26px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .verse .skt-text {
+    font-size: 1.15rem;
+    color: var(--crimson-deep);
+    line-height: 1.9;
+    margin-bottom: 10px;
+  }
+
+  .verse .translit {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .verse .gloss { font-size: 0.92rem; color: var(--ink); text-align: left; }
+
+  .verse .cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--gold);
+    text-align: right;
+    letter-spacing: 0.03em;
+  }
+
+  /* ===== Pull quotes ===== */
+  blockquote.pull {
+    margin: 30px 0;
+    padding: 20px 28px;
+    border-left: 5px solid var(--crimson);
+    background: linear-gradient(90deg, rgba(138,38,32,0.06), transparent);
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  blockquote.pull .attrib {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    font-style: normal;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== Tables ===== */
+  .table-wrap { overflow-x: auto; margin: 22px 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fffdf7;
+    font-size: 0.92rem;
+  }
+
+  caption {
+    text-align: left;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    caption-side: top;
+  }
+
+  th, td {
+    border: 1px solid var(--line);
+    padding: 9px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--crimson-deep);
+    color: var(--parchment);
+    font-weight: 600;
+    font-size: 0.84rem;
+    letter-spacing: 0.02em;
+  }
+
+  tr:nth-child(even) td { background: var(--parchment-deep); }
+
+  /* ===== Card grids ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .card {
+    background: #fffdf7;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .card .card-skt { font-size: 1.3rem; color: var(--crimson-deep); margin-bottom: 4px; }
+  .card .card-translit { font-size: 0.82rem; color: var(--gold); font-style: italic; margin-bottom: 10px; }
+  .card .card-body { font-size: 0.88rem; color: var(--ink-soft); }
+  .card .card-foot { margin-top: 10px; font-size: 0.74rem; color: var(--sandhi-soft); border-top: 1px dashed var(--line); padding-top: 8px; }
+
+  /* ===== Lineage chain diagram ===== */
+  .lineage-chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    margin: 28px 0;
+    justify-content: center;
+  }
+
+  .lineage-node {
+    background: #fffdf7;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px 16px;
+    min-width: 130px;
+    max-width: 165px;
+    text-align: center;
+    font-size: 0.84rem;
+  }
+
+  .lineage-node .ln-skt { font-size: 1.1rem; color: var(--crimson-deep); margin-bottom: 3px; }
+  .lineage-node .ln-name { font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .lineage-node .ln-date { font-size: 0.72rem; color: var(--gold); }
+
+  .lineage-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--gold);
+    font-size: 1.4rem;
+    padding: 0 6px;
+  }
+
+  @media (max-width: 700px) {
+    .lineage-chain { flex-direction: column; align-items: center; }
+    .lineage-arrow { transform: rotate(90deg); padding: 4px 0; }
+  }
+
+  /* ===== Vak-level four-band strip ===== */
+  .vak-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 26px 0;
+  }
+
+  @media (max-width: 700px) { .vak-strip { grid-template-columns: 1fr; } }
+
+  .vak-band {
+    border-radius: 8px;
+    padding: 16px 14px;
+    color: #fff;
+    font-size: 0.84rem;
+  }
+
+  .vak-band.para { background: linear-gradient(160deg, var(--para), #5e1814); }
+  .vak-band.pasyanti { background: linear-gradient(160deg, var(--pasyanti), #1c4750); }
+  .vak-band.madhyama { background: linear-gradient(160deg, var(--madhyama), #4a3463); }
+  .vak-band.vaikhari { background: linear-gradient(160deg, var(--vaikhari), #5a361d); }
+
+  .vak-band .vb-skt { font-size: 1.25rem; margin-bottom: 4px; }
+  .vak-band .vb-name { font-weight: 700; margin-bottom: 8px; opacity: 0.95; }
+  .vak-band .vb-body { opacity: 0.92; line-height: 1.5; }
+
+  /* ===== Footer nav within content (forward/back) ===== */
+  .series-context-box {
+    background: var(--parchment-deep);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px 24px;
+    margin: 30px 0;
+  }
+
+  .series-context-box h4 { margin-top: 0; color: var(--crimson-deep); font-style: normal; font-size: 1rem; }
+
+  /* ===== Editorial framework tag (matches Part III style) ===== */
+  .editorial-tag {
+    display: block;
+    text-align: right;
+    font-size: 0.74rem;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+  }
+
+  /* ===== Reading note box ===== */
+  .reading-note {
+    background: #fffaf0;
+    border: 1px dashed var(--gold);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-size: 0.93rem;
+  }
+
+  .reading-note .rn-title {
+    font-weight: 700;
+    color: var(--crimson-deep);
+    margin-bottom: 8px;
+    font-style: normal;
+  }
+
+  /* ===== Footnotes / bibliography ===== */
+  .ref-section { font-size: 0.88rem; }
+  .ref-section ol, .ref-section ul { padding-left: 22px; }
+  .ref-section li { margin-bottom: 9px; }
+  .ref-section .ref-group-title {
+    color: var(--crimson-deep);
+    font-size: 1rem;
+    margin: 26px 0 10px;
+    border-left: 4px solid var(--gold);
+    padding-left: 12px;
+    font-style: normal;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    background: #2a2018;
+    color: var(--parchment-deep);
+    text-align: center;
+    padding: 40px 8vw 50px;
+    font-size: 0.85rem;
+  }
+
+  footer .om { font-size: 1.4rem; color: var(--gold-soft); margin-bottom: 14px; }
+  footer .fline { margin: 4px 0; }
+  footer .fmeta { margin-top: 18px; color: var(--gold-soft); font-size: 0.78rem; letter-spacing: 0.04em; }
+
+  /* ===== Back to top ===== */
+  .top-link {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    background: var(--crimson-deep);
+    color: var(--parchment);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    box-shadow: 0 3px 10px var(--shadow);
+    z-index: 50;
+  }
+  .top-link:hover { text-decoration: none; background: var(--crimson); }
+
+  /* ===== Numbered roman section marker row ===== */
+  .sec-marker {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <nav class="sidebar" id="top">
+    <div class="brand">
+      <div class="mark">CULTURAL MUSINGS</div>
+      <div class="sub">Vedic &amp; Śāstric Research Platform</div>
+      <span class="series-tag">Series A · Part V of VI</span>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">The Bhāṣya Tradition as Lineage</div>
+      <ul>
+        <li><a href="#series-context">Series Context</a></li>
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#sec-1">I. Lineage as Philosophical Category</a></li>
+        <li><a href="#sec-2">II. The Guru-Paramparā Before the Bhāṣya</a></li>
+        <li><a href="#sec-3">III. Gauḍapāda and the Inheritance of Ajātivāda</a></li>
+        <li><a href="#sec-4">IV. Govinda Bhagavatpāda and the Hinge Generation</a></li>
+        <li><a href="#sec-5">V. What Śaṅkara Inherited from the Pūrvapakṣa Itself</a></li>
+        <li><a href="#sec-6">VI. The Bhāṣya as Genre: Form Carrying Lineage</a></li>
+        <li><a href="#sec-7">VII. Transformation I: The Adhyāropa-Apavāda Method</a></li>
+        <li><a href="#sec-8">VIII. Transformation II: Metaphor as Inherited, Redirected</a></li>
+        <li><a href="#sec-9">IX. The Sub-Commentarial Afterlife: Vācaspati to Madhusūdana</a></li>
+        <li><a href="#sec-10">X. Lineage Across All Four Vāk-Levels</a></li>
+        <li><a href="#sec-11">XI. AI Training as Inheritance Without Lineage</a></li>
+        <li><a href="#sec-12">XII. Synthesis: Diction as the Visible Form of Transmission</a></li>
+        <li><a href="#forward">Forward to Part VI</a></li>
+        <li><a href="#footnotes">Footnotes</a></li>
+        <li><a href="#bibliography">Bibliography</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-group parts">
+      <div class="nav-group-title">Series A — All Parts</div>
+      <ul>
+        <li><a href="https://shastrasextentionvak.culturalmusings.com/" class="future">Part I · The Ground Before the Word</a></li>
+        <li><a href="#" class="future">Part II · The Script as Philosophy</a></li>
+        <li><a href="https://shastrasextentionvaktwo.culturalmusings.com/" class="future">Part III · Prakṛti–Puruṣa as Living Interface</a></li>
+        <li><a href="#" class="future">Part IV · Śaṅkara's Metaphoric Architecture</a></li>
+        <li><a href="#" class="current">Part V · The Bhāṣya Tradition as Lineage</a></li>
+        <li><a href="#" class="future">Part VI · Vāk Returning to Itself</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-skt skt">
+      परम्परा · सम्प्रदाय · भाष्य<br>
+      गुरु-शिष्य-क्रम · वंशः<br>
+      Series A · Part Five of Six
+    </div>
+  </nav>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <div class="topstrip">भाष्यपरम्परा · परम्परा · सम्प्रदाय · वंशः · रूपान्तरम् &nbsp;·&nbsp; Series A · Part Five of Six · Diction as Inheritance</div>
+
+    <header class="hero">
+      <div class="hero-eyebrow">Cultural Musings · Vedic &amp; Śāstric Research Platform</div>
+      <h1>The Bhāṣya Tradition as Lineage</h1>
+      <div class="subtitle">Diction as Inheritance — How Śaṅkara's Metaphoric Architecture Was Received from a Living Paramparā, and How It Was Transformed in the Receiving</div>
+      <div class="hero-meta">
+        <div class="item"><span class="label">Series</span><span class="value">A · Part V of VI</span></div>
+        <div class="item"><span class="label">Vāk Level</span><span class="value">All Four — Parā through Vaikharī</span></div>
+        <div class="item"><span class="label">Format</span><span class="value">White Paper · Twelve Sections</span></div>
+        <div class="item"><span class="label">Focus</span><span class="value">Lineage, Inheritance, and Transformation</span></div>
+      </div>
+      <div class="hero-skt skt">भाष्यपरम्परा वंशः — दीक्षा च रूपान्तरम्</div>
+    </header>
+
+    <div class="content">
+
+      <!-- ===================== SERIES CONTEXT ===================== -->
+      <section id="series-context">
+        <div class="sec-marker"><span class="section-num">↗</span></div>
+        <h2 class="section-title">Series Context and Orientation</h2>
+        <p class="lede">Where Part Five Stands</p>
+        <p>Parts One through Three established, in turn, the philosophical ground of language (sphoṭa, the four levels of vāk, Sanskrit as philosophical necessity), the philosophical content encoded in the visible script (Māheśvara sūtras, anusvāra, visarga, śirorekha), and the ontological engine — the living Puruṣa–Prakṛti interface — that makes experience, language, and liberation possible in the first place. Part Four turned from ontology to diction: it read Śaṅkara's specific images — the rope-snake, the mirror, the dream, the tenth man — as Vaikharī-level enactments of the Paśyantī-level insight they communicate, arguing that the bhāṣya's metaphors are not illustrations of an argument but the argument itself, conducted in the register of image. Part Five now asks the question Part Four's analysis could not yet ask, because it required Part Four's results as its premise: where did this diction come from, and what did Śaṅkara do to it once he had received it? No philosopher's images arrive from nowhere. Śaṅkara inherited a textual and oral tradition already two and a half millennia deep — Upaniṣadic image-language, the Brahmasūtra's own compressed metaphors, a century of prior Advaitin commentary running from Gauḍapāda through Govinda Bhagavatpāda, and the entire Sanskrit bhāṣya genre's accumulated conventions for how a commentary should sound. This paper traces that inheritance with precision, and then traces, with equal precision, the specific transformations Śaṅkara performed upon it — because the lineage that Advaita Vedānta calls its paramparā is not a static handing-down of unchanged content but a living transmission in which each link receives, and in receiving, necessarily alters what passes through it.</p>
+
+
+        <div class="table-wrap">
+        <table>
+          <caption>Series A — Complete Architecture and Part Five's Position</caption>
+          <thead><tr><th>Part</th><th>Vāk Level</th><th>Focus</th></tr></thead>
+          <tbody>
+            <tr><td>I</td><td>Parā · Paśyantī</td><td>The Ground Before the Word — Sphoṭa, Prākrit Inference, Philosophical Necessity of Sanskrit</td></tr>
+            <tr><td>II</td><td>Paśyantī–Madhyamā</td><td>The Script as Philosophy — Devanāgarī, Akṣara Ontology, What the Letter Carries</td></tr>
+            <tr><td>III</td><td>Madhyamā</td><td>Prakṛti–Puruṣa as Living Interface — Experience, Language, Liberation</td></tr>
+            <tr><td>IV</td><td>Vaikharī</td><td>Śaṅkara's Metaphoric Architecture — How the Bhāṣya Diction Enacts What It Describes</td></tr>
+            <tr><td>V</td><td><strong>This Paper</strong></td><td><strong>The Bhāṣya Tradition as Lineage — Diction as Inheritance, What Śaṅkara Received and Transformed</strong></td></tr>
+            <tr><td>VI</td><td>All Four → Parā</td><td>Vāk Returning to Itself — Pratiprasava of Language, Handoff to Series B</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <blockquote class="pull">A lineage that changed nothing in the receiving would not be a lineage; it would be a copy. And a lineage that preserved nothing in the changing would not be a lineage either; it would be a rupture wearing borrowed clothes. Paramparā names the narrow, demanding path between these two failures — and Śaṅkara walked it as precisely as he walked every other philosophical tightrope his system required.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">✦</div>
+
+      <!-- ===================== ABSTRACT ===================== -->
+      <section id="abstract">
+        <h2 class="section-title">Abstract</h2>
+        <p>This paper develops Series A's investigation of Śaṅkara's diction by reframing the question from composition to transmission. Part Four established that Śaṅkara's central metaphors function as precise interface-operations rather than rhetorical ornament. The present paper asks what made those operations possible: a paramparā, a lineage of teacher and disciple stretching back through Govinda Bhagavatpāda to Gauḍapāda and, by the tradition's own testimony, to Śuka, Vyāsa, and ultimately to Nārāyaṇa himself, each link of which transmitted not merely doctrinal positions but a diction — a characteristic way of deploying image, argument, and citation that constitutes as much of the inheritance as the propositions it carries.</p>
+        <p>Twelve sections develop this argument. Section I establishes lineage (paramparā, sampradāya) as a philosophical category in its own right, distinct from mere historical influence. Section II examines the guru-śiṣya-paramparā as it existed before any bhāṣya was written — the oral transmission whose conventions the written commentary later crystallises. Section III turns to Gauḍapāda's Māṇḍūkya-Kārikā and the ajātivāda (no-origination) doctrine that Śaṅkara inherits, softens, and redeploys. Section IV examines the comparatively obscure but pivotal figure of Govinda Bhagavatpāda, Śaṅkara's direct guru, and the "hinge generation" problem his minimal textual footprint creates for any lineage-based account. Section V turns the inheritance question inside-out, asking what Śaṅkara received not from his own tradition but from the opponents (pūrvapakṣins) he refutes — Sāṃkhya, Mīmāṃsā, Buddhist Vijñānavāda — arguing that a philosopher's diction is shaped as much by what he argues against as by what he affirms. Section VI examines the bhāṣya as a genre whose formal conventions (maṅgalācaraṇa, pūrvapakṣa-siddhānta structure, adhikaraṇa organization) are themselves an inheritance carrying philosophical content. Sections VII and VIII examine two specific transformations in detail: the adhyāropa-apavāda method (superimposition-and-retraction) as an inherited Upaniṣadic teaching-device that Śaṅkara systematizes into his bhāṣya's structural backbone, and the rope-snake/mirror/dream image-cluster as inherited material that Śaṅkara redirects toward ends his predecessors had not fully exploited. Section IX traces the sub-commentarial afterlife of this diction — how Vācaspati Miśra, Padmapāda, Sureśvara, and ultimately Madhusūdana Sarasvatī received Śaṅkara's own diction in turn, becoming, in receiving it, the next links of the same chain whose earlier links are this paper's primary subject. Section X maps the entire lineage-and-transformation argument onto the four levels of vāk that organize the whole series. Section XI returns to the series' recurring AI counterpoint, examining whether the relationship between a large language model and its training corpus constitutes anything that the philosophical category of paramparā could recognize as lineage, or whether it is inheritance without transmission — a structurally important negative case for what lineage actually requires. Section XII synthesizes the whole: diction, on the argument developed here, is not the surface style in which philosophy happens to be written; it is the visible form that transmission itself takes, the place where a lineage shows what it has carried and what it has done with the carrying.</p>
+
+        <div class="reading-note">
+          <div class="rn-title">Reading Note — Lineage as Argument, Not Background</div>
+          <p style="margin-bottom:0;">A reader trained in modern textual scholarship may be tempted to treat this paper's lineage material — names, dates, guru-paramparā lists — as scholarly throat-clearing before the "real" philosophical content begins. This paper argues against that separation throughout. The lineage is not background to Śaṅkara's diction; it is the diction's explanatory ground. Sections I–IV establish what was received; Sections V–VIII establish what was done with it; Sections IX–X trace what happened to it afterward and at what levels of vāk; Sections XI–XII draw the consequences. A reader pressed for time can take Sections I, VI, VII, and XII as the paper's spine; the remaining sections fill in the historical and comparative texture that the spine presupposes.</p>
+        </div>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION I ===================== -->
+      <section id="sec-1">
+        <div class="sec-marker"><span class="section-num">I.</span></div>
+        <h2 class="section-title">Lineage as a Philosophical Category, Not a Historical Footnote</h2>
+
+        <h3>1.1 Two Ways of Reading "Influence"</h3>
+        <p>Western intellectual history typically treats the relationship between a philosopher and a predecessor as a matter of <em>influence</em>: a causal, historically locatable transfer of ideas from an earlier thinker to a later one, established by demonstrating textual borrowing, documented contact, or argumentative parallel. Influence, on this model, is something a scholar discovers about a philosopher from the outside; it is rarely something the philosopher himself foregrounds as constitutive of his own authority to speak. A philosopher who announced, as the first line of his major treatise, that he was merely transmitting what his teacher's teacher's teacher had already established would, in most Western philosophical contexts, be making a modest, even self-deprecating claim — and one in some tension with the discipline's general expectation that philosophical authority derives from the strength of one's own arguments.</p>
+        <p>Śaṅkara's tradition inverts this expectation entirely. The term it uses — <em>paramparā</em>, literally "one after another," an unbroken succession — names not an external fact discoverable about the tradition but the tradition's own constitutive self-understanding of where its authority comes from. To stand within a paramparā is not a modest qualification appended to an otherwise self-standing argument; it is the condition under which the argument has any standing to be heard as Vedānta at all. The Brahmasūtra itself, the root text Śaṅkara comments upon, opens not with an argument but with a desire to inquire (<em>athāto brahma-jijñāsā</em>) that presupposes a prior, already-transmitted body of Upaniṣadic teaching the inquiry will investigate, not invent. Sāṃpradāyika authority — authority that derives from standing within a sampradāya, a handed-down teaching-tradition — is, on the tradition's own account, a necessary condition for a teaching to count as Vedānta proper, distinguishing it from merely clever speculation (<em>tarka</em>) unanchored in revelation (<em>śruti</em>) and its authorized line of interpreters.</p>
+
+        <h3>1.2 Paramparā and Sampradāya: Two Inseparable Terms</h3>
+        <p>The tradition deploys two terms that the present paper will use with some precision throughout. <em>Paramparā</em> denotes the succession itself — the chain of individual teacher-disciple relationships, person to person, considered as a temporal sequence: Govinda taught Śaṅkara, who (the tradition holds) had himself been taught by Govinda, who had been taught by Gauḍapāda, and so on backward. <em>Sampradāya</em> denotes the content that the succession carries — the body of teaching, interpretive method, and characteristic diction that is handed down through the succession and that gives the succession its identity as <em>this</em> lineage rather than some other. A paramparā without a sampradāya would be an empty genealogy, a list of names connected by nothing; a sampradāya without a paramparā would be a body of doctrine with no account of how it came to exist or why anyone should trust its transmission. The two terms name the form and the content of the same living reality, and Śaṅkara's bhāṣyas are, on the argument of this paper, best understood as a single, sustained act in which both are simultaneously enacted: the bhāṣya demonstrates, by its very existence and by its characteristic diction, that the paramparā is unbroken, while its argumentative content demonstrates that the sampradāya it carries is the correct interpretation of śruti.</p>
+
+        <div class="verse">
+          <div class="skt-text">आचार्यवान् पुरुषो वेद</div>
+          <div class="translit">ācāryavān puruṣo veda</div>
+          <div class="gloss">The person who has a teacher, knows. — Chāndogya Upaniṣad VI.14.2, cited throughout the Vedānta tradition as the scriptural warrant for the necessity of paramparā</div>
+        </div>
+
+        <h3>1.3 Why This Matters for a Series About Diction</h3>
+        <p>The present series has, from Part One forward, treated language not as a neutral vehicle for philosophical content but as itself a mode of being's self-disclosure, with the bhāṣya genre identified (Part One, Section VI) as a form whose Madhyamā-level discursiveness carries, when practiced by a master of the genre, condensed Paśyantī-level meanings. Part Four extended this into a close reading of Śaṅkara's specific metaphors as interface-operations. The lineage-argument developed in the present paper is the necessary completion of that analysis, because a diction does not arise from an individual mind in isolation: every metaphor Śaṅkara deploys, every structural convention his bhāṣyas follow, every characteristic move of his argumentative method was, to some significant degree, already available to him — inherited from Upaniṣadic image-language, from Gauḍapāda's prior systematization, from the conventions of the bhāṣya genre as a form of philosophical writing, and even from the specific arguments of the opponents he refutes. To understand Śaṅkara's diction fully requires understanding what in it is received and what in it is transformed — and the tradition's own category of paramparā, taken philosophically rather than merely historically, is the analytical instrument this paper will use to make that distinction precise.</p>
+
+        <div class="table-wrap">
+        <table>
+          <caption>Influence vs. Paramparā — Two Models of Intellectual Inheritance</caption>
+          <thead><tr><th>Feature</th><th>"Influence" (Western Historiographic Model)</th><th>Paramparā (The Tradition's Own Category)</th></tr></thead>
+          <tbody>
+            <tr><td>Locus of discovery</td><td>External — discovered by a later scholar comparing texts</td><td>Internal — affirmed by the tradition itself as constitutive of its authority</td></tr>
+            <tr><td>Relation to authority</td><td>Often in tension with originality as the source of a thinker's standing</td><td>Is itself the source of a teaching's standing to count as Vedānta</td></tr>
+            <tr><td>What is transmitted</td><td>Ideas, arguments, sometimes phrasing</td><td>Doctrine (sampradāya) and diction together, inseparably</td></tr>
+            <tr><td>Expected fidelity</td><td>Variable; later thinker may freely depart from source</td><td>Departure must be justified as <em>correct interpretation</em>, not innovation</td></tr>
+            <tr><td>Verification</td><td>Textual/historical evidence of contact or borrowing</td><td>Continuity of teaching verified by the teaching's coherence with śruti and predecessor bhāṣyas</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <blockquote class="pull">To call Śaṅkara's metaphors "his own" in the sense Western literary criticism reserves for an author's original images would be to miss the specific kind of philosophical achievement his bhāṣyas represent. The achievement was never originality in that sense. It was fidelity exercised with such precision, across so many inherited materials, that something genuinely new emerged from the faithfulness itself.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION II ===================== -->
+      <section id="sec-2">
+        <div class="sec-marker"><span class="section-num">II.</span></div>
+        <h2 class="section-title">The Guru-Śiṣya-Paramparā Before the Bhāṣya: Oral Transmission and Its Conventions</h2>
+
+        <h3>2.1 The Written Bhāṣya as the Late Crystallisation of an Older Practice</h3>
+        <p>It is easy, reading a printed Sanskrit text with critical apparatus and English translation, to imagine the bhāṣya as a literary artifact that simply <em>is</em> what it has always been: a written commentary, composed by an author, intended for readers. The tradition's own self-understanding situates the written bhāṣya quite differently — as the relatively late crystallisation of a much older oral practice of teaching that long predates any of the surviving written commentaries. The guru-śiṣya-paramparā as an institution is attested already in the Upaniṣads themselves, which repeatedly stage their own teaching as dialogue: Śvetaketu instructed by Uddālaka in the Chāndogya, Naciketas instructed by Yama in the Kaṭha, the successive teachers of Satyakāma in the Chāndogya's celebrated sequence of non-human gurus (a bull, fire, a swan, a diving-bird) each transmitting a quarter of brahma-vidyā. The Upaniṣads are not merely texts that happen to be structured as dialogues; they are transcriptions — or, on a stronger reading, ritually preserved memories — of a teaching-practice in which the oral, person-to-person, question-and-answer transmission was primary, and any later textual fixing was secondary.</p>
+
+        <h3>2.2 What Oral Transmission Required: Memorisation Technologies and Their Philosophical Consequence</h3>
+        <p>The Vedic and Vedāntic oral tradition developed, over many centuries prior to widespread manuscript culture, an extraordinarily rigorous set of memorisation technologies — the pada-pāṭha (word-by-word recitation breaking sandhi), the krama-pāṭha, the jaṭā-pāṭha and ghana-pāṭha (permutation recitations that recombine adjacent words in fixed patterns precisely so that an error in one recitation would be audible against the others) — whose primary purpose was the verbatim preservation of the Vedic saṃhitā text against the corruptions that purely semantic, paraphrase-based memorisation would introduce over generations. This technology, developed for śruti itself, shaped the entire culture of transmission within which the later Upaniṣadic and Vedāntic teaching was conducted: a culture in which exact verbal fidelity was prized not as pedantry but as the only reliable safeguard against the gradual drift that any chain of retelling, left to paraphrase, would eventually introduce.</p>
+        <p>The philosophical consequence of this culture for the present paper's argument is significant. A guru-śiṣya-paramparā formed within this memorisation culture would have transmitted not only doctrinal content in the abstract but specific formulations, specific image-clusters, specific argumentative sequences — verbatim or near-verbatim — as the very vehicle through which the doctrine was preserved against drift. When Śaṅkara's bhāṣya deploys an image that recurs, with only minor variation, across multiple Upaniṣadic contexts and earlier teachers, the recurrence is not evidence of limited imagination; it is evidence that the image had already become, well before Śaṅkara, a fixed point within the oral sampradāya's transmission technology — a stable unit that successive teachers retained precisely because retention, not novelty, was what the transmission-culture trained its participants to value.</p>
+
+        <h3>2.3 The Triple Discipline: Śravaṇa, Manana, Nididhyāsana</h3>
+        <p>The Vedāntic tradition formalises the guru-śiṣya relationship's pedagogical structure into a threefold discipline that the Bṛhadāraṇyaka Upaniṣad's celebrated verse (II.4.5, repeated IV.5.6) names directly: <em>śravaṇa</em> (hearing the teaching from a qualified teacher), <em>manana</em> (reflecting upon it, testing it against reason until doubt is removed), and <em>nididhyāsana</em> (sustained meditative dwelling upon the teaching until it ripens into direct realisation). This triple discipline is itself a theory of how transmission must work if it is to terminate not merely in correct belief but in liberating knowledge: hearing alone risks remaining merely verbal; reflection alone, without an authorised teaching to reflect upon, risks producing merely personal speculation (tarka) unanchored in revelation; meditative dwelling alone, without the prior two stages, risks becoming directionless absorption with no determinate content. Each stage requires the others, and the entire sequence requires a guru — not because the guru possesses private information unavailable elsewhere, but because the guru's own prior passage through the same threefold discipline, received from his own guru, is what qualifies him to test the disciple's understanding and certify that śravaṇa has actually occurred, that manana has actually removed the relevant doubts, and that nididhyāsana is proceeding correctly rather than degenerating into a private, possibly mistaken, absorption.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-skt skt">श्रवण</div>
+            <div class="card-translit">Śravaṇa</div>
+            <div class="card-body">Hearing the Upaniṣadic teaching from a qualified teacher who himself stands within an unbroken paramparā. Establishes the content to be understood.</div>
+            <div class="card-foot">First discipline · the moment of reception</div>
+          </div>
+          <div class="card">
+            <div class="card-skt skt">मनन</div>
+            <div class="card-translit">Manana</div>
+            <div class="card-body">Sustained rational reflection upon what was heard, removing doubts and contrary positions (pūrvapakṣa) through argument, until the teaching stands established (siddhānta).</div>
+            <div class="card-foot">Second discipline · the moment of testing</div>
+          </div>
+          <div class="card">
+            <div class="card-skt skt">निदिध्यासन</div>
+            <div class="card-translit">Nididhyāsana</div>
+            <div class="card-body">Sustained meditative dwelling upon the established teaching until it ceases to be merely known propositionally and ripens into direct, immediate realisation.</div>
+            <div class="card-foot">Third discipline · the moment of ripening</div>
+          </div>
+        </div>
+
+        <h3>2.4 The Bhāṣya as the Written Trace of the Manana Stage</h3>
+        <p>Positioned against this threefold discipline, the written bhāṣya genre occupies a specific and limited place: it is, predominantly, a textual record of the <em>manana</em> stage — the rational, argumentative working-through of doubts and alternative positions that establishes the correct interpretation of what has been heard. This is why the bhāṣya's characteristic structure (examined fully in Section VI below) is organised around the pūrvapakṣa-siddhānta method: stating an opposing position with its full argumentative force, then refuting it and establishing the correct position in its place. A bhāṣya does not, and on the tradition's own understanding cannot, accomplish śravaṇa (which requires a living teacher's voice, not a text) or nididhyāsana (which requires the disciple's own sustained meditative practice, not anything a text could supply). What it can do, and what Śaṅkara's bhāṣyas do with unmatched thoroughness, is preserve and transmit the manana — the reasoned argument — in a form durable enough to outlast any single teacher's lifetime, available to be taken up by a disciple who will still require a living guru for the śravaṇa that precedes reading the bhāṣya and the nididhyāsana that follows it.</p>
+
+        <blockquote class="pull">The written bhāṣya is not a substitute for the living guru; it is what the living guru's manana looks like once it has been fixed in a form durable enough to survive him. Reading Śaṅkara's text without ever having sat before a teacher who can supply the śravaṇa it presupposes is, on the tradition's own terms, reading only one third of what the teaching requires.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION III ===================== -->
+      <section id="sec-3">
+        <div class="sec-marker"><span class="section-num">III.</span></div>
+        <h2 class="section-title">Gauḍapāda and the Inheritance of Ajātivāda</h2>
+
+        <h3>3.1 The Māṇḍūkya-Kārikā as the Lineage's First Systematic Text</h3>
+        <p>Tradition places Gauḍapāda (date uncertain, plausibly sixth century CE, though estimates range earlier) as the teacher of Govinda Bhagavatpāda, who was in turn Śaṅkara's own guru — making Gauḍapāda, on the lineage's own reckoning, Śaṅkara's guru's guru. His <em>Māṇḍūkya-Kārikā</em> (also called the Āgama-Śāstra or Gauḍapāda-Kārikā), a verse commentary appended to and vastly expanding upon the brief Māṇḍūkya Upaniṣad, is the earliest surviving systematic exposition of what would become Advaita Vedānta's most radical doctrinal commitment: <em>ajātivāda</em>, the doctrine of no-origination, the claim that nothing whatsoever has ever truly come into being — not the world, not the individual self, not even the appearance of bondage and liberation — because only the unchanging, non-dual Brahman is ultimately real, and what is ultimately real cannot, by definition, have originated from or be modified into anything else.</p>
+
+        <h3>3.2 The Four States and Turīya: Inherited Structure</h3>
+        <p>Gauḍapāda's text takes as its scaffold the Māṇḍūkya Upaniṣad's analysis of the self across waking (jāgrat), dreaming (svapna), and dreamless sleep (suṣupti), adding to these three ordinary states a fourth, turīya — the self as witness underlying and unaffected by all three, identified with the silent fourth quarter of the syllable OM. This fourfold analysis becomes, after Gauḍapāda, a permanent fixture of the Advaita repertoire: Śaṅkara deploys it repeatedly, not only in his own Māṇḍūkya-Upaniṣad-Bhāṣya (where he comments directly on Gauḍapāda's kārikās) but throughout the Brahmasūtra-Bhāṣya and Upaniṣad commentaries, wherever he needs a phenomenologically immediate, experientially verifiable analogy for the relationship between the unchanging witness-self and its changing states.</p>
+
+        <div class="vak-strip">
+          <div class="vak-band para"><div class="vb-skt">तुरीय</div><div class="vb-name">Turīya</div><div class="vb-body">The fourth, witnessing state. Inherited by Śaṅkara as the standing analogy for the unchanging witness-self underlying all conditions — the experiential ground his bhāṣyas return to whenever they need a phenomenologically available proof of the unchanging self.</div></div>
+          <div class="vak-band pasyanti"><div class="vb-skt">स्वप्न</div><div class="vb-name">Svapna</div><div class="vb-body">The dream state, inherited as the single most important image-cluster in the entire bhāṣya tradition for illustrating māyā's capacity to generate an entire apparent world without any of it being ultimately real.</div></div>
+          <div class="vak-band madhyama"><div class="vb-skt">सुषुप्ति</div><div class="vb-name">Suṣupti</div><div class="vb-body">Dreamless sleep, inherited as the experiential proof that the self persists, undivided, even in the absence of all cognitive content — the empirical anchor for claims about the self's nature that could otherwise seem purely speculative.</div></div>
+          <div class="vak-band vaikhari"><div class="vb-skt">जागरण</div><div class="vb-name">Jāgaraṇa</div><div class="vb-body">Waking experience, inherited as the baseline against which the other three states' philosophical lessons are drawn — ordinary perception itself reframed, by the fourfold analysis, as only one state among several rather than the unquestioned default.</div></div>
+        </div>
+
+        <h3>3.3 Ajātivāda as the Doctrine Śaṅkara Receives and Moderates</h3>
+        <p>Gauḍapāda's ajātivāda, taken in its strongest form, is a doctrine of such radicality that it risks collapsing the entire distinction between bondage and liberation, teacher and student, śruti and the world it addresses — if nothing has ever originated, in what sense does even the Upaniṣadic teaching itself "happen," and in what sense is there anyone for it to liberate? Gauḍapāda's text, particularly in its fourth chapter (the Alātaśānti-Prakaraṇa, "the quenching of the firebrand," using the image of a whirled firebrand's apparent circle of light to illustrate how a rapidly cycling but ultimately illusory process can generate the appearance of stable extended forms), pushes this radicality about as far as a coherent philosophical text can push it, drawing explicitly on Buddhist Madhyamaka and Yogācāra vocabulary and argument-forms to do so — a borrowing the tradition itself has long acknowledged and debated, with some later Advaitins (and several modern scholars including the philologist Vidhushekhara Bhattacharya) treating Gauḍapāda's proximity to Buddhist thought as itself evidence of the lineage's permeable, non-sectarian intellectual openness in this formative period.</p>
+        <p>Śaṅkara inherits ajātivāda but does not transmit it unmoderated. His Brahmasūtra-Bhāṣya affirms the ultimate, pāramārthika truth of non-origination while insisting, with a systematic care that goes beyond anything explicit in Gauḍapāda's text, on the vyāvahārika (empirical-conventional) reality of the created world, the validity of ritual and devotional practice at that level, and the soteriological necessity of a teacher, a teaching, and a path — precisely the structures that an unmoderated ajātivāda would seem to render illusory along with everything else. This is the first clear case, within the present paper's argument, of inherited doctrine being deliberately transformed in transmission: Śaṅkara does not reject Gauḍapāda's ajātivāda, and indeed affirms it as the highest truth, but he builds around it an entire architecture of two levels of truth (discussed further in Section VII) that domesticates the doctrine's most destabilising implications without abandoning the doctrine itself.</p>
+
+        <div class="verse">
+          <div class="skt-text">नात्मा संनिकृष्टश्च न दूरे नैव सन्निकृष्टतमः ।<br>अजमजरमभयममृतमशोकं ब्रह्म ॥</div>
+          <div class="translit">Adapted paraphrase of the closing emphasis of Gauḍapāda-Kārikā IV — Brahman as unborn (aja), undecaying (ajara), fearless (abhaya), deathless (amṛta), free from sorrow (aśoka)</div>
+          <div class="gloss">The four-fold negation here — unborn, undecaying, fearless, deathless — establishes the vocabulary of negative attribution (apophasis) that Śaṅkara's own bhāṣya diction will inherit wholesale, deploying precisely this kind of stacked negation whenever the argument approaches the limits of what positive predication about Brahman can responsibly assert.</div>
+        </div>
+
+        <h3>3.4 What Specifically Passes from Gauḍapāda to Śaṅkara's Diction</h3>
+        <p>Beyond doctrine, three specifically dictional inheritances deserve note because they recur, transformed, throughout Śaṅkara's own bhāṣyas. First, the habit of using a single vivid analogy (the firebrand's circle, the dream) to compress an entire argument that discursive prose would require many more sentences to unfold — precisely the technique Part Four examined in Śaṅkara's own metaphoric architecture, here traced to its demonstrable textual precedent. Second, the apophatic register — defining Brahman through a chain of negations rather than positive characterisation — which Gauḍapāda deploys systematically and Śaṅkara inherits as a standing resource for the specific philosophical problem of how to speak about what exceeds ordinary predication. Third, and most structurally significant, the willingness to engage rival systems' technical vocabulary (Gauḍapāda's Buddhist borrowings) not as capitulation but as a demonstration that Advaita's truth can be reached by, and therefore can incorporate the genuine insights of, multiple argumentative paths — a methodological generosity that Śaṅkara extends, in his own bhāṣyas, to his treatment of Sāṃkhya categories (examined in Section V below), which he refutes as a final ontological position while freely retaining as a descriptive vocabulary.</p>
+
+        <blockquote class="pull">Gauḍapāda gave the lineage its most radical doctrine and its most economical method for stating it. Śaṅkara's contribution was not to retreat from the radicalism but to build, around it, the scaffolding of two truths and systematic textual exegesis that would let the radical doctrine survive contact with an entire civilisation's worth of householders, ritualists, and rival philosophers without being either diluted or rejected outright.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION IV ===================== -->
+      <section id="sec-4">
+        <div class="sec-marker"><span class="section-num">IV.</span></div>
+        <h2 class="section-title">Govinda Bhagavatpāda and the Hinge Generation Problem</h2>
+
+        <h3>4.1 The Most Important Link with the Least Surviving Text</h3>
+        <p>Every account of Śaṅkara's lineage names Govinda Bhagavatpāda (also called Govindanātha or simply Govinda Yati) as his direct guru — the link without which there is, on the tradition's own structure, no paramparā connecting Śaṅkara to Gauḍapāda at all. And yet Govinda is, by a wide margin, the most textually obscure figure in the entire chain this paper traces. No independent philosophical treatise securely attributed to Govinda survives. The traditional hagiographies (the Śaṅkara-Digvijaya literature, composed centuries after Śaṅkara's lifetime and of contested historical reliability) describe Govinda as a renunciate living in a cave near the Narmada river, already advanced in age and meditative attainment when the young Śaṅkara sought him out, and credit him with instructing Śaṅkara directly in the Brahma-sūtras and in Gauḍapāda's teaching — but these accounts are devotional biography, not contemporaneous documentary record, and modern scholarship treats their specific narrative details with appropriate caution.</p>
+
+        <h3>4.2 Why the Obscurity Matters Philosophically, Not Just Historically</h3>
+        <p>This paper treats Govinda's textual obscurity not as an unfortunate gap to be apologised for but as a structurally revealing case for the theory of lineage developed in Sections I–II. If paramparā transmitted only propositional doctrine — specific arguments, specific theses — then a guru who left no independent treatise would represent an irrecoverable break in the chain: whatever Govinda taught Śaṅkara would be permanently inaccessible to anyone but Śaṅkara himself, lost the moment it failed to leave a textual trace of its own. But the account developed in Section II — that paramparā transmits sampradāya and diction together, with diction (the patterns of teaching, the characteristic emphases, the manner of engaging Gauḍapāda's text) often carried more durably in the disciple's subsequent practice than in any independent treatise the teacher himself composed — suggests a different way of reading Govinda's case. Govinda's "absence" from the textual record may be exactly what successful oral transmission of the kind described in Section II looks like from the outside: a teacher whose entire contribution was so thoroughly absorbed into his disciple's subsequent diction that no independent record was ever felt to be necessary, the teaching having already been fully transmitted into a form — Śaṅkara's own bhāṣyas — durable enough that nothing further needed preserving separately.</p>
+
+        <div class="lineage-chain">
+          <div class="lineage-node">
+            <div class="ln-skt">नारायण</div>
+            <div class="ln-name">Nārāyaṇa</div>
+            <div class="ln-date">Traditional origin-point</div>
+          </div>
+          <div class="lineage-arrow">→</div>
+          <div class="lineage-node">
+            <div class="ln-skt">व्यास</div>
+            <div class="ln-name">Vyāsa</div>
+            <div class="ln-date">Author of Brahmasūtra (trad.)</div>
+          </div>
+          <div class="lineage-arrow">→</div>
+          <div class="lineage-node">
+            <div class="ln-skt">शुक</div>
+            <div class="ln-name">Śuka</div>
+            <div class="ln-date">Legendary recipient</div>
+          </div>
+          <div class="lineage-arrow">→</div>
+          <div class="lineage-node">
+            <div class="ln-skt">गौडपाद</div>
+            <div class="ln-name">Gauḍapāda</div>
+            <div class="ln-date">c. 6th cent. CE (est.)</div>
+          </div>
+          <div class="lineage-arrow">→</div>
+          <div class="lineage-node">
+            <div class="ln-skt">गोविन्द</div>
+            <div class="ln-name">Govinda Bhagavatpāda</div>
+            <div class="ln-date">No independent treatise survives</div>
+          </div>
+          <div class="lineage-arrow">→</div>
+          <div class="lineage-node">
+            <div class="ln-skt">शङ्कर</div>
+            <div class="ln-name">Śaṅkara</div>
+            <div class="ln-date">c. 700s–800s CE (est., disputed)</div>
+          </div>
+        </div>
+
+        <h3>4.3 Comparative Note: The Hinge Generation as a General Pattern</h3>
+        <p>This is not a pattern unique to Govinda. Intellectual history across traditions repeatedly produces "hinge generations" — figures positioned between a textually prolific predecessor and a textually prolific successor, themselves leaving comparatively little independent trace, whose contribution becomes visible only retrospectively, in the specific shape the successor's work takes. Socrates, who left no writing at all, stands in roughly this relation to the Pre-Socratics before him and to Plato's voluminous dialogues after; what we know of Socrates' philosophy is mediated almost entirely through what Plato (and, differently, Xenophon and Aristophanes) chose to transmit of him, raising exactly the question this section raises about Govinda — how much of what looks like "Plato's philosophy" is in fact Socrates' diction, fully absorbed and redeployed by a disciple skilled enough that the seam between reception and innovation becomes nearly invisible from the outside.</p>
+        <p>The comparison should not be pushed into claiming an identity of cases — Socrates' historical existence and basic teaching-method are independently attested by multiple witnesses in a way Govinda's specific teaching is not — but the structural point holds across both cases and is the section's main contribution to the present paper's argument: a lineage's strength is not measured by the textual prolificacy of its every link, and a hinge generation's apparent silence may be the precise mechanism by which a sampradāya's diction passes most completely into its next custodian — so completely that the question "what did Govinda teach Śaṅkara?" cannot be answered by pointing to any text of Govinda's, but can be answered, indirectly and with appropriate caution, by examining what is distinctive in Śaṅkara's own diction that does not derive demonstrably from Gauḍapāda's surviving Kārikā or from the Brahmasūtra itself — the residue, so to speak, that the hinge generation's transmission most plausibly accounts for.</p>
+
+        <div class="reading-note">
+          <div class="rn-title">A Methodological Caution</div>
+          <p style="margin-bottom:0;">This section's argument is necessarily more speculative than Sections I, III, VI, and VII, which rest on directly comparable surviving texts. The Govinda case is included not because it can be demonstrated with the same textual precision as the Gauḍapāda inheritance, but because the theory of lineage this paper develops would be incomplete, even dishonest, if it examined only the cases where transmission left abundant textual evidence and silently passed over the case — arguably the single most important link in Śaṅkara's own paramparā — where the evidence is thinnest. A theory of inheritance that only works when the inheritance is well-documented is not yet a general theory of inheritance.</p>
+        </div>
+
+        <blockquote class="pull">Govinda Bhagavatpāda's silence in the textual record is not a hole in the lineage; on the argument developed here, it may be the lineage working exactly as the oral transmission-culture of Section II intended — a teaching absorbed so completely into the disciple's own subsequent voice that no separate monument to the teacher was ever required.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION V ===================== -->
+      <section id="sec-5">
+        <div class="sec-marker"><span class="section-num">V.</span></div>
+        <h2 class="section-title">What Śaṅkara Inherited from the Pūrvapakṣa Itself: The Opponent as Source</h2>
+
+        <h3>5.1 Inheritance Is Not Only Agreement</h3>
+        <p>Sections III and IV traced inheritance along the expected axis: from teacher to disciple, within a single sampradāya, across positions the lineage affirms. But a philosopher's diction — the specific vocabulary available to him, the categories he reaches for, the analogies that occur to him as natural rather than strained — is shaped at least as decisively by sustained, serious engagement with the positions he rejects. Part Three of this series (Section IX) already noted, in a different context, that AI architecture instantiates the complete Sāṃkhya tattva-hierarchy with remarkable fidelity; the present section makes the complementary observation that Śaṅkara's own bhāṣya diction is saturated with Sāṃkhya, Mīmāṃsā, and Buddhist Vijñānavāda vocabulary not despite his rejection of these systems but because of the depth of his engagement with them. A philosopher who refutes a position carelessly absorbs little of its vocabulary; a philosopher who refutes a position as thoroughly as Śaṅkara refutes Sāṃkhya in Brahmasūtra-Bhāṣya II.1–2 has, in the course of that refutation, necessarily inherited — and put to his own use — a substantial portion of the opponent's conceptual apparatus.</p>
+
+        <h3>5.2 Sāṃkhya's Guṇa-Vocabulary, Retained After the Ontology Is Refuted</h3>
+        <p>The clearest case, and the one most directly continuous with this series' Part Three, is Sāṃkhya's tri-guṇa analysis (sattva, rajas, tamas). Śaṅkara's Brahmasūtra-Bhāṣya rejects Sāṃkhya's foundational dualism — the claim that Puruṣa and Prakṛti are two independent, equally ultimate principles — as incompatible with the Upaniṣadic teaching of Brahman's sole, non-dual reality; Prakṛti, for Śaṅkara, cannot be an independent ultimate, because nothing is independently ultimate apart from Brahman. Yet having rejected the ontology, Śaṅkara retains the guṇa-vocabulary as a descriptive psychology and cosmology almost without qualification: his discussions of antaḥkaraṇa (the inner instrument: manas, buddhi, ahaṃkāra, citta), of the qualities of different states of mind, of the layered structure of the empirical world all proceed in guṇa-terms inherited wholesale from the very system whose ultimate metaphysics he has just finished refuting. This is precisely the pattern Part Three's Section X described from the doctrinal side (what Advaita dissolves versus what it preserves of Sāṃkhya); the present section adds the dictional observation that what gets preserved is, to a remarkable degree, vocabulary and analytic categories rather than argument — Śaṅkara inherits Sāṃkhya's descriptive map even while replacing its ontological foundations entirely.</p>
+
+        <div class="table-wrap">
+        <table>
+          <caption>What Śaṅkara Inherits from Each Major Pūrvapakṣa, and What He Refuses</caption>
+          <thead><tr><th>Opponent System</th><th>What Is Refuted (Ontology)</th><th>What Is Inherited (Vocabulary / Method)</th></tr></thead>
+          <tbody>
+            <tr><td>Sāṃkhya</td><td>Puruṣa–Prakṛti as two independent ultimates; Prakṛti as an uncaused first cause</td><td>The tri-guṇa analysis; the antaḥkaraṇa structure; the tattva-enumeration as descriptive psychology</td></tr>
+            <tr><td>Pūrva-Mīmāṃsā</td><td>The Veda as exclusively a body of ritual injunction (vidhi) with no independent metaphysical content</td><td>The entire apparatus of Mīmāṃsā hermeneutics — adhikaraṇa structure, śabda-pramāṇa theory, the rules for resolving apparent textual conflict — redeployed for jñāna-kāṇḍa exegesis</td></tr>
+            <tr><td>Buddhist Vijñānavāda</td><td>The claim that only cognition (vijñāna) exists, with no external object and (on some readings) no persisting self</td><td>The dream-analogy's argumentative structure; close analysis of the momentary character of ordinary cognition, redirected toward establishing the unchanging witness rather than denying it</td></tr>
+            <tr><td>Buddhist Mādhyamika (via Gauḍapāda)</td><td>Śūnyatā as the final, unqualifiable truth, with no positive substrate beneath appearance</td><td>The dialectical method of relentless logical analysis (prasaṅga-style reductio) turned to establish, rather than dissolve into emptiness, the positive reality of Brahman</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>5.3 Mīmāṃsā Hermeneutics as Borrowed Machinery</h3>
+        <p>The debt to Pūrva-Mīmāṃsā is, if anything, more structurally pervasive than the debt to Sāṃkhya, though less often remarked because it operates at the level of method rather than content. Jaimini's Mīmāṃsā-Sūtra and Śabara's Bhāṣya upon it had, well before Śaṅkara, developed an extraordinarily refined technical apparatus for resolving apparent conflicts within the Vedic corpus — the adhikaraṇa (topic) structure that states a doubt (saṃśaya), a prima facie view (pūrvapakṣa), and a final settled view (siddhānta) with reasoning (nyāya) connecting them; rules for determining which of two textual statements takes interpretive priority when they appear to conflict; a developed theory of śabda (verbal testimony) as an independent means of valid knowledge. Śaṅkara's Brahmasūtra-Bhāṣya adopts this entire hermeneutical machinery for the project of jñāna-kāṇḍa exegesis (interpreting the Upaniṣads' knowledge-content) that Pūrva-Mīmāṃsā itself had developed exclusively for karma-kāṇḍa exegesis (interpreting the Veda's ritual-injunctive content) — and had, in its own right, denied any independent metaphysical use for. The adhikaraṇa-method that structures literally every section of Śaṅkara's bhāṣya is, in this precise sense, Mīmāṃsā's machinery, inherited not from his own Vedāntic teachers but from the rival school whose central metaphysical claim (that the Veda is exhaustively ritual-injunctive) his entire commentary exists to refute.</p>
+
+        <h3>5.4 The Dream-Argument: Refining a Buddhist Tool for a Non-Buddhist End</h3>
+        <p>Part Four's analysis of the dream-metaphor in Śaṅkara's diction can now be supplemented with its specifically Buddhist genealogy. Sustained philosophical analysis of the dream-state's capacity to generate a fully convincing but ultimately unreal experiential world is a hallmark of Yogācāra Buddhist epistemology, which deploys the dream-analogy precisely to establish that waking experience, like dream experience, may consist entirely of cognition (vijñāna) without any corresponding external object — an idealist conclusion Śaṅkara firmly rejects. Yet Śaṅkara's own bhāṣyas redeploy the same dream-analogy, refined through Gauḍapāda's prior use of it (Section III above), toward an almost opposite conclusion: not that there is no persisting reality behind appearance, but that there is a persisting, unchanging witness-self (sākṣin) whose reality the dream-state — precisely because the dreamer persists as the one who later remembers having dreamt — actually helps to establish rather than undermine. The argumentative tool is inherited from the opponent; the conclusion it is bent toward serving is the opponent's exact philosophical adversary.</p>
+
+        <blockquote class="pull">A philosopher's vocabulary is not a reliable guide to his conclusions. Śaṅkara speaks fluent Sāṃkhya, fluent Mīmāṃsā, and — by way of Gauḍapāda — fluent Yogācāra, while affirming none of their final ontological commitments. This is not inconsistency. It is what serious refutation always requires: you cannot dismantle an opponent's house without first learning, in considerable detail, how the house was built.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION VI ===================== -->
+      <section id="sec-6">
+        <div class="sec-marker"><span class="section-num">VI.</span></div>
+        <h2 class="section-title">The Bhāṣya as Genre: Form Carrying Lineage</h2>
+
+        <h3>6.1 Genre Conventions as a Species of Inheritance</h3>
+        <p>The preceding sections have traced inheritance at the level of doctrine (Section III), pedagogical structure (Section II), and conceptual vocabulary (Section V). The present section identifies a fourth and distinct level: the bhāṣya's formal, generic conventions — the structural moves a commentary is simply expected to make, regardless of the specific doctrinal content it carries — which are themselves an inheritance, transmitted across sectarian lines (Mīmāṃsā, Nyāya, Sāṃkhya, and Vedānta bhāṣyas all share substantial formal overlap) and constituting a shared Sanskrit philosophical-literary culture that predates and exceeds any single lineage's doctrinal content.</p>
+
+        <h3>6.2 The Maṅgalācaraṇa: Opening Invocation as Lineage-Marker</h3>
+        <p>Nearly every Sanskrit philosophical text of the classical period opens with a maṅgalācaraṇa — an invocatory verse seeking auspiciousness and typically honouring a deity, a teacher, or the text's own subject matter — before any substantive argument begins. This convention is often treated by modern readers as devotional ornament, separable from the philosophical content proper. The present paper argues this separation is a modern imposition the genre itself does not support: the maṅgalācaraṇa is where a commentator publicly situates himself within a lineage, naming (explicitly or through characteristic epithet and allusion) the teacher, the deity, or the textual tradition under whose authority the commentary that follows will proceed. Śaṅkara's own invocations — for instance the opening verses of several of his Upaniṣad-bhāṣyas honouring his teacher's teaching or the non-dual truth itself — perform exactly this function: before a single argument is advanced, the text has already declared its sāmpradāyika credentials, in conformity with the principle established in Section I that Vedāntic authority requires standing within a transmission, not merely advancing a clever argument.</p>
+
+        <h3>6.3 The Pūrvapakṣa-Siddhānta Architecture</h3>
+        <p>The single most pervasive structural inheritance — already introduced in Section V as borrowed specifically from Mīmāṃsā's adhikaraṇa-method — deserves fuller treatment here as a genre-level convention in its own right. Each topic (adhikaraṇa) Śaṅkara addresses follows a recognisable sequence: a doubt is raised (saṃśaya) concerning the correct interpretation of a sūtra or Upaniṣadic passage; the strongest opposing view is stated with its full argumentative force, often stronger than any actual opponent had stated it, because the genre demands that refutation engage the best version of a position, not a weak caricature (this stage is the pūrvapakṣa, "prior view" or "front view"); the opposing view is then systematically dismantled; and the correct view is established (siddhānta, "settled conclusion") with supporting reasoning. This architecture is not original to Śaṅkara, not original to Vedānta, and not even original to philosophical literature generally — formally comparable opponent-then-resolution structures appear across Sanskrit dialectical literature wherever a settled doctrinal position needs to be established against live alternatives, and the structure's logic (state the strongest case against your own position before answering it) is a transmitted method of intellectual honesty whose philosophical value the genre encodes structurally, independent of whatever specific doctrine fills its slots.</p>
+
+        <div class="table-wrap">
+        <table>
+          <caption>The Adhikaraṇa Structure — Inherited Architecture, Variable Content</caption>
+          <thead><tr><th>Structural Element</th><th>Sanskrit Term</th><th>Function</th></tr></thead>
+          <tbody>
+            <tr><td>Topic under discussion</td><td>विषय (viṣaya)</td><td>The specific sūtra or passage whose correct meaning is in question</td></tr>
+            <tr><td>The doubt</td><td>संशय (saṃśaya)</td><td>The interpretive uncertainty that makes discussion necessary in the first place</td></tr>
+            <tr><td>The opposing view, stated strongly</td><td>पूर्वपक्ष (pūrvapakṣa)</td><td>The strongest case against the eventual conclusion, stated fully before any refutation begins</td></tr>
+            <tr><td>The settled conclusion</td><td>सिद्धान्त (siddhānta)</td><td>The position the bhāṣya ultimately establishes, with supporting reasoning (nyāya)</td></tr>
+            <tr><td>The connecting rationale</td><td>संगति (saṃgati)</td><td>The logical/contextual link explaining why this topic follows the preceding one in the sūtra's sequence</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>6.4 Citation Density as Inherited Discipline</h3>
+        <p>A further genre-convention worth isolating: the bhāṣya's characteristic density of textual citation — Upaniṣadic passages, smṛti texts, other sūtra-portions — invoked not as decorative erudition but as the genre's primary mechanism of argumentative warrant. A bhāṣya argument is rarely considered complete on the strength of reasoning (yukti) alone; it characteristically closes its case by citing a śruti passage that the preceding reasoning has prepared the reader to receive correctly. This citation-discipline, like the adhikaraṇa-structure, predates Śaṅkara and is shared across Mīmāṃsā and Vedāntic commentary alike; what is specifically Śaṅkara's contribution — and here genre-inheritance shades into the dictional transformation Sections VII–VIII will examine — is the rhetorical skill with which the citations are integrated, such that the cited verse appears not as an external prop shoring up an independently constructed argument but as the argument's natural, almost inevitable culmination, the point toward which the entire preceding discussion had, in retrospect, always been moving.</p>
+
+        <blockquote class="pull">Genre is the least visible form of inheritance precisely because it is the most thoroughly absorbed. A reader can notice that Śaṅkara borrows a metaphor from Gauḍapāda; almost no reader notices, without being told, that the very shape of the paragraph making the argument — doubt, opposing view, refutation, settled conclusion, capping citation — is itself received from a transmission older and broader than Vedānta alone.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION VII ===================== -->
+      <section id="sec-7">
+        <div class="sec-marker"><span class="section-num">VII.</span></div>
+        <h2 class="section-title">Transformation I: The Adhyāropa-Apavāda Method — Systematising an Upaniṣadic Teaching-Device</h2>
+
+        <h3>7.1 Superimposition and Retraction: The Doctrine Stated</h3>
+        <p><em>Adhyāropa-apavāda</em> — superimposition followed by retraction — names a teaching-method in which a provisional attribution is first made to facilitate understanding, then explicitly withdrawn once its pedagogical work is complete, so that the learner is not left mistaking the provisional scaffolding for the final truth. The clearest paradigm case, inherited from the Upaniṣads themselves and repeated throughout the bhāṣya tradition, is the teaching that Brahman "creates" the world: this is adhyāropa, a superimposition of agency and temporal sequence onto what, at the level of final truth, involves no real creation, no real agent, and no real temporal sequence at all (because nothing other than Brahman ultimately exists for Brahman to act upon or to act in time toward). Having taught creation in order to give the learner some initial purchase on Brahman's relation to the world, the teaching must subsequently retract the superimposition (apavāda) — most famously in the Chāndogya Upaniṣad's repeated refrain that all transformation is "name only" (vācārambhaṇam), that what is real is only the underlying substance (clay, gold, iron) and not the many named forms it provisionally appears as.</p>
+
+        <h3>7.2 The Upaniṣadic Source: Already Present, Not Yet Systematic</h3>
+        <p>The method is not Śaṅkara's invention; its constituent moves — provisional teaching followed by correction — are demonstrably present in the Upaniṣads' own pedagogical practice, most explicitly in the Chāndogya's clay/gold/iron analogies (VI.1.4–6) and in the Bṛhadāraṇyaka's repeated use of the formula "neti neti" (not this, not this) to retract, one by one, every positive characterisation a prior passage has offered of the self. What the Upaniṣads do not do, however, is name this pattern as a method, generalise it into an explicit hermeneutical principle applicable across the entire corpus, or use it as a structural key to resolve the apparent contradiction between Upaniṣadic passages that speak of creation (suggesting real causal change) and passages that deny any real multiplicity (suggesting no causal change is ultimately possible). This generalisation and systematic application is Śaṅkara's transformation of received material: he takes a recurring pedagogical pattern, implicit and scattered across many separate teaching-contexts in the source texts, and elevates it into the single most important hermeneutical principle his bhāṣyas use to reconcile śruti's own internal tensions.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-skt skt">अध्यारोप</div>
+            <div class="card-translit">Adhyāropa</div>
+            <div class="card-body">Provisional superimposition: teaching creation, agency, multiplicity, and causal sequence as if they were ultimately real, to give the unprepared learner an initial, workable orientation toward Brahman.</div>
+            <div class="card-foot">Inherited from Upaniṣadic pedagogical practice (implicit)</div>
+          </div>
+          <div class="card">
+            <div class="card-skt skt">अपवाद</div>
+            <div class="card-translit">Apavāda</div>
+            <div class="card-body">Subsequent retraction: explicitly withdrawing the provisional teaching once the learner has been prepared, revealing that creation, agency, and multiplicity are vyāvahārika (conventional) rather than pāramārthika (ultimate).</div>
+            <div class="card-foot">Inherited from Chāndogya's vācārambhaṇam and Bṛhadāraṇyaka's neti neti</div>
+          </div>
+        </div>
+
+        <h3>7.3 Śaṅkara's Specific Transformation: From Scattered Technique to Structural Backbone</h3>
+        <p>Three specific moves constitute Śaṅkara's transformation of the inherited material. First, generalisation: where the source texts apply the superimposition-retraction pattern locally, to specific passages and specific analogies, Śaṅkara applies it globally, as a principle governing how the entire Upaniṣadic corpus's apparently inconsistent statements about Brahman's relation to the world are to be read in relation to one another — passages teaching creation are systematically read as adhyāropa, preparatory and provisional; passages teaching non-duality and no-origination are systematically read as the apavāda that those provisional teachings were always building toward. Second, explicit naming and theorisation: Śaṅkara's bhāṣyas (and still more explicitly the later sub-commentarial tradition examined in Section IX) name the method directly and discuss its own epistemological status — why a provisional, ultimately false teaching can nonetheless function as a legitimate and necessary step toward truth, an issue the source texts assume works but do not themselves examine. Third, integration with the two-truths architecture: Śaṅkara binds adhyāropa-apavāda tightly to the vyāvahārika/pāramārthika distinction already inherited, in less developed form, from Gauḍapāda (Section III) — adhyāropa now names, precisely, the act of teaching at the vyāvahārika level, and apavāda names the act of pointing, from within that vyāvahārika teaching, toward the pāramārthika truth that finally cancels it. The three inherited materials — Upaniṣadic teaching-pattern, Gauḍapāda's two truths, and Śaṅkara's own systematic hermeneutics — are fused into a single working method that none of the three sources, taken separately, had fully articulated.</p>
+
+        <div class="verse">
+          <div class="skt-text">यथा सोम्येकेन मृत्पिण्डेन सर्वं मृन्मयं विज्ञातं स्यात् ।<br>वाचारम्भणं विकारो नामधेयं मृत्तिकेत्येव सत्यम् ॥</div>
+          <div class="translit">yathā somyaikena mṛt-piṇḍena sarvaṃ mṛn-mayaṃ vijñātaṃ syāt · vācārambhaṇaṃ vikāro nāmadheyaṃ mṛttiketyeva satyam</div>
+          <div class="gloss">As, my dear, by one lump of clay all that is made of clay would be known — the modification is name only, arising from speech; the truth is just the clay. — Chāndogya Upaniṣad VI.1.4, the paradigm source-text for what Śaṅkara's bhāṣyas systematise into the apavāda half of the adhyāropa-apavāda method</div>
+        </div>
+
+        <h3>7.4 Why This Counts as Transformation Rather Than Mere Transmission</h3>
+        <p>The distinction this paper has maintained since Section I — between a paramparā that merely repeats and one that genuinely transmits — depends on cases like this one being identifiable as transformation, not just transfer. A test can be stated precisely: would a careful reader of the Chāndogya Upaniṣad alone, without subsequent Vedāntic systematisation, arrive at adhyāropa-apavāda as a named, general, corpus-wide hermeneutical principle? The textual evidence suggests no — the pattern is locally present but not generalised, and earlier non-Advaitin readers of the same Upaniṣadic passages (Pūrva-Mīmāṃsā exegetes among them) did not extract this principle from the same source material, despite sharing many of the same hermeneutical tools described in Section VI. What Śaṅkara contributes is therefore not contained in, but is also not separable from, what he received: the method could not have been formulated without the inherited Upaniṣadic pattern and the inherited two-truths framework, and yet neither of those inherited materials, prior to Śaṅkara's systematisation, constituted the method he eventually articulates.</p>
+
+        <blockquote class="pull">Adhyāropa-apavāda is, in miniature, an instance of itself: a provisional, scattered, locally-functioning Upaniṣadic teaching-technique (adhyāropa, so to speak, at the level of the lineage's own history) that Śaṅkara's systematic hermeneutics retracts and replaces with a single, general, named principle (apavāda) — without which the provisional technique's full significance could never have been recognised.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION VIII ===================== -->
+      <section id="sec-8">
+        <div class="sec-marker"><span class="section-num">VIII.</span></div>
+        <h2 class="section-title">Transformation II: Metaphor as Inherited, Redirected</h2>
+
+        <h3>8.1 Picking Up Where Part Four Left the Question Open</h3>
+        <p>Part Four read the rope-snake, the mirror, the dream, and the tenth man as Vaikharī-level enactments of precise interface-operations, treating each as a load-bearing philosophical device. That analysis bracketed, by design, the question of where these specific images came from — a question the present paper's lineage-framework now allows to be answered with some precision, and which reveals that each image was, to varying degrees, already available to Śaṅkara before he wrote a single bhāṣya, and that his distinctive contribution lay not in invention but in a specific redirection of inherited material toward an argumentative end the material had not, in its prior usages, been made to serve.</p>
+
+        <h3>8.2 The Rope-Snake: From General Illusion-Example to Precise Epistemological Model</h3>
+        <p>The image of a rope mistaken for a snake in poor light — the single most famous metaphor in the entire Advaita corpus — is not original to Śaṅkara. Illusion-examples of broadly this type (a shell mistaken for silver, a post mistaken for a man) circulate widely across classical Indian epistemology (pramāṇa-śāstra) as stock examples used by Nyāya, Mīmāṃsā, and Buddhist epistemologists alike to test and illustrate their respective theories of perceptual error (khyāti-vāda) — theories addressing the general philosophical question of what, exactly, happens cognitively when a perception turns out to be mistaken. Śaṅkara inherits this already-circulating example-type from the shared epistemological culture of his philosophical environment, not from his own Vedāntic predecessors specifically. His transformation lies in redirecting a generic illustration of perceptual error — used elsewhere chiefly to settle a debate about the metaphysics of mistaken cognition itself — toward the specific, soteriologically loaded purpose of illustrating how avidyā (ignorance) superimposes the entire apparent world of multiplicity onto the substrate of non-dual Brahman, exactly as the rope's real, simple substrate is overlaid with the false, complex appearance of a snake. The example is borrowed; its deployment as the central model for cosmic, rather than merely perceptual, error is Śaṅkara's redirection.</p>
+
+        <div class="table-wrap">
+        <table>
+          <caption>The Major Image-Cluster — Prior Circulation Versus Śaṅkara's Redirection</caption>
+          <thead><tr><th>Image</th><th>Prior / General Circulation</th><th>Śaṅkara's Specific Redirection</th></tr></thead>
+          <tbody>
+            <tr><td>Rope mistaken for snake</td><td>Stock example in pan-Indian pramāṇa-śāstra debates on the metaphysics of perceptual error (khyāti-vāda)</td><td>Elevated to the central model of avidyā's superimposition of the entire phenomenal world onto Brahman</td></tr>
+            <tr><td>Mirror / reflection</td><td>Used in Sāṃkhya to illustrate Puruṣa's non-participating proximity to Prakṛti's activity (Part III, Section 3.1); also present in Pratyabhijñā vocabulary (prakāśa)</td><td>Redirected to illustrate how the unchanging self appears, without itself changing, as the diversity of buddhi's reflected contents — an epistemic rather than purely ontological point</td></tr>
+            <tr><td>Dream</td><td>Central to Yogācāra Buddhist arguments for cognition-only idealism (Section 5.4); systematised by Gauḍapāda for ajātivāda (Section 3.4)</td><td>Redirected to argue for, rather than against, a persisting unchanging witness-self — the dreamer who remains to remember the dream upon waking</td></tr>
+            <tr><td>The tenth man</td><td>A folk-counting riddle of pre-philosophical, popular origin (a group miscounts itself, omitting the counter), not originally a philosophical example at all</td><td>Adopted as the paradigm case of self-forgetting through wrong identification — the self overlooking itself precisely because it is what is doing the looking</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>8.3 The Mirror: Crossing from Sāṃkhya's Ontology to Advaita's Epistemology</h3>
+        <p>Part Three's Section 3.1 already identified the mirror-analogy operating within Sāṃkhya to illustrate Puruṣa's non-participating witness-function — the mirror reflects without being altered by what it reflects, precisely as Puruṣa illuminates Prakṛti's activity without participating in it. Śaṅkara inherits this same basic image but redeploys it within a non-dual framework where there is, strictly, no second principle (Prakṛti) for a witness-Puruṣa to stand apart from; the mirror, in Śaṅkara's redirected usage, illustrates instead how the single, unchanging self (ātman, here identical with Brahman) appears to take on the diverse, changing qualities of whatever mental state (buddhi-vṛtti) happens to be present before it — much as a single mirror appears, successively, blue, red, or green depending only on the coloured object placed before it, without the mirror's own nature undergoing any corresponding change. The shift from Sāṃkhya's dualist deployment to Śaṅkara's non-dualist deployment of structurally the same image is a clean instance of the pattern this section is documenting: identical vehicle, redirected tenor.</p>
+
+        <h3>8.4 The Tenth Man: Folk Material Given Philosophical Employment</h3>
+        <p>The "tenth man" parable — ten men cross a river, each counts the others upon reaching the far bank, each finds only nine and concludes in panic that one has drowned, because each man, in counting, omits himself — has no clear textual origin in the Upaniṣads themselves and is widely treated, including within the tradition's own oral pedagogical use, as folk material: a counting-riddle of the kind a teacher might draw from popular storytelling rather than from scripture. Its philosophical use within the Advaita tradition to illustrate self-forgetting — the self, like the panicked traveller, overlooks exactly the one thing it is incapable of failing to be, and a teacher's entire function in this analogy reduces to the modest, decisive act of pointing out what was never actually missing — represents an inheritance not from prior Vedāntic or even prior Sanskrit philosophical literature narrowly construed, but from a broader, less prestigious, more orally diffuse cultural reservoir that the bhāṣya tradition (and the oral teaching practice underlying it, per Section II) drew upon freely whenever a vivid, immediately graspable illustration served the pedagogical moment better than a more technically pedigreed example would have.</p>
+
+        <h3>8.5 The General Pattern: Vehicle Borrowed, Tenor Redirected</h3>
+        <p>Across all four cases, the same structural pattern recurs and can now be stated as a general principle governing this entire category of transformation: Śaṅkara borrows the vehicle (the concrete image — rope-and-snake, mirror, dream, ten men) from a source outside his own immediate doctrinal lineage — from shared epistemological culture, from a rival school's prior usage, or from non-philosophical folk material — while redirecting the tenor (the specific philosophical point the image is made to illustrate) toward Advaita's distinctive non-dual conclusions, conclusions the borrowed vehicle had not, in its prior circulation, been used to establish. This is a different and more granular kind of transformation than Section VII's systematisation of an already-Vedāntic technique; it is, in effect, transformation by appropriation across boundaries — taking material that belonged, prior to Śaṅkara, to a different argumentative project entirely, and discovering in it a capacity to serve Advaita's project that its original users had not exploited.</p>
+
+        <blockquote class="pull">The rope-snake belonged, before Śaṅkara, to no one's metaphysics in particular — it was common epistemological currency. What Śaṅkara did was not coin a new image but discover, in an image everyone already had in their pocket, a use no one had yet spent it on.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION IX ===================== -->
+      <section id="sec-9">
+        <div class="sec-marker"><span class="section-num">IX.</span></div>
+        <h2 class="section-title">The Sub-Commentarial Afterlife: Vācaspati to Madhusūdana</h2>
+
+        <h3>9.1 The Lineage Does Not Stop at Śaṅkara</h3>
+        <p>Every preceding section has treated Śaṅkara as the receiving end of a transmission — the point at which inherited material from Gauḍapāda, from Govinda, from the pūrvapakṣa traditions, and from the bhāṣya genre's general conventions converges and is transformed. This section completes the picture by treating Śaṅkara as, in turn, a transmitting source: the sub-commentarial tradition that follows him receives his diction with exactly the same combination of fidelity and transformation that Sections III–VIII have documented in his own reception of his predecessors, becoming, by the logic established in Section I, the next links of the identical chain.</p>
+
+        <h3>9.2 Two Sub-Schools, One Inherited Diction Read Two Ways</h3>
+        <p>Within two or three centuries of Śaṅkara, his own bhāṣyas had already generated two major, mutually contesting sub-commentarial schools — the Bhāmatī school, founded on Vācaspati Miśra's (c. 9th–10th century CE) Bhāmatī commentary on the Brahmasūtra-Bhāṣya, and the Vivaraṇa school, founded on Padmapāda's (a direct disciple of Śaṅkara, by tradition) Pañcapādikā and its own later sub-commentary, the Vivaraṇa of Prakāśātman. These two schools disagree on substantive points of doctrine — most famously on the precise locus (āśraya) and content (viṣaya) of avidyā, whether ignorance is located in the individual jīva (Vācaspati's general position) or in Brahman itself considered under a limiting condition (closer to the Vivaraṇa position) — while both schools claim, with equal sincerity, to be faithfully unpacking what Śaṅkara's own bhāṣya already implies. This is the clearest possible demonstration, within the tradition's own subsequent history, of the paper's central thesis: a single inherited diction, transmitted with evident fidelity by both successor lines, nonetheless generates substantively different systematic elaborations, because faithful transmission was never, even at the moment of Śaṅkara's own reception of Gauḍapāda, a matter of passive copying.</p>
+
+        <div class="lineage-chain">
+          <div class="lineage-node">
+            <div class="ln-skt">शङ्कर</div>
+            <div class="ln-name">Śaṅkara</div>
+            <div class="ln-date">Brahmasūtra-Bhāṣya</div>
+          </div>
+          <div class="lineage-arrow">⟶</div>
+          <div class="lineage-node">
+            <div class="ln-skt">सुरेश्वर</div>
+            <div class="ln-name">Sureśvara</div>
+            <div class="ln-date">Direct disciple · Naiṣkarmya-Siddhi</div>
+          </div>
+          <div class="lineage-arrow">⟶</div>
+          <div class="lineage-node">
+            <div class="ln-skt">वाचस्पति</div>
+            <div class="ln-name">Vācaspati Miśra</div>
+            <div class="ln-date">c. 9th–10th cent. · Bhāmatī school</div>
+          </div>
+          <div class="lineage-arrow">⟶</div>
+          <div class="lineage-node">
+            <div class="ln-skt">पद्मपाद / प्रकाशात्मन्</div>
+            <div class="ln-name">Padmapāda → Prakāśātman</div>
+            <div class="ln-date">Vivaraṇa school</div>
+          </div>
+          <div class="lineage-arrow">⟶</div>
+          <div class="lineage-node">
+            <div class="ln-skt">मधुसूदन सरस्वती</div>
+            <div class="ln-name">Madhusūdana Sarasvatī</div>
+            <div class="ln-date">c. 16th cent. · Advaita-Siddhi</div>
+          </div>
+        </div>
+
+        <h3>9.3 Sureśvara: The Disciple Who Wrote Independently</h3>
+        <p>Sureśvara — traditionally identified as Śaṅkara's direct disciple and, in some accounts, formerly a Mīmāṃsaka named Maṇḍana Miśra prior to his conversion to Advaita — occupies an instructive intermediate position between Govinda's near-total textual silence (Section IV) and the later sub-commentators' explicit commentary-upon-commentary format. Sureśvara's Naiṣkarmya-Siddhi and his vārtikas (independent versified elaborations) on Śaṅkara's Bṛhadāraṇyaka and Taittirīya bhāṣyas are not commentaries in the strict adhikaraṇa-by-adhikaraṇa sense (Section VI) but free-standing treatises that nonetheless track Śaṅkara's specific arguments and images closely enough to function as a kind of fluent paraphrase-with-elaboration — demonstrating a mode of transmission intermediate between Govinda's apparent silence and Vācaspati's formal sub-commentary, in which the disciple writes independently but so thoroughly within the received diction that the independence and the fidelity are not experienced, by the disciple himself, as being in any tension.</p>
+
+        <h3>9.4 Madhusūdana Sarasvatī: Six Centuries Later, Still the Same Chain</h3>
+        <p>The chain's chronological reach is worth registering concretely. Madhusūdana Sarasvatī, writing his Advaita-Siddhi in roughly the sixteenth century — some six to eight centuries after Śaṅkara, depending on which dating is accepted for Śaṅkara himself — is still operating recognisably within the same diction this paper has traced from the Upaniṣads through Gauḍapāda to Śaṅkara: still using the rope-snake, still organising arguments by adhyāropa-apavāda, still structuring discussion by adhikaraṇa, still citing the Chāndogya's vācārambhaṇam formula at the moments the inherited method calls for it. The Advaita-Siddhi is principally a polemical work directed against the Dvaita Vedānta of Madhva's school (specifically against Vyāsatīrtha's Nyāyāmṛta), which means that by the sixteenth century the lineage-diction this paper has traced is being deployed not primarily to interpret śruti afresh but to defend, against a rival Vedāntic school, the correctness of the interpretation the lineage had already settled on many centuries earlier — a shift in the diction's primary function (from exegetical to defensive-polemical) that is itself a further, later-stage transformation this paper can only note in passing, as a marker that the chain traced here continues to evolve well past the point this paper's main argument has examined in detail.</p>
+
+        <h3>9.5 What the Sub-Commentarial Case Confirms About Lineage in General</h3>
+        <p>The Bhāmatī/Vivaraṇa split and Sureśvara's intermediate case together confirm, from the receiving end, what Sections III–VIII established from the giving end: paramparā is never mere replication. Vācaspati and Padmapāda's tradition both received the identical bhāṣya text — there is no textual variant at issue, both schools comment on the same Brahmasūtra-Bhāṣya passages — and yet produced demonstrably different systematic positions on a central point of doctrine. If a single, fixed written text can generate two divergent, internally coherent, equally sincere claims to faithful elaboration, this is strong confirmation that the diction itself — the metaphors, the structural method, the inherited vocabulary this paper has traced across Sections III through VIII — carries an interpretive latitude that no act of transmission, however careful, can fully close down. The lineage is alive in exactly the sense that a living organism is alive: it metabolises what it receives rather than merely storing it.</p>
+
+        <blockquote class="pull">Two schools, reading the same bhāṣya with equal devotion, arrived at different accounts of where ignorance lives. This is not a failure of transmission. It is what transmission of a genuinely rich diction always eventually produces, once enough time and enough careful readers have been given the chance to ask of it more than its author needed to settle for himself.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION X ===================== -->
+      <section id="sec-10">
+        <div class="sec-marker"><span class="section-num">X.</span></div>
+        <h2 class="section-title">Lineage Across All Four Vāk-Levels</h2>
+
+        <h3>10.1 Why This Paper, Uniquely Among the Six, Operates at All Four Levels</h3>
+        <p>The series' part-map (reproduced in the Series Context above) assigns each prior part a specific vāk-level or level-transition: Part One at Parā-Paśyantī, Part Two at the Paśyantī-Madhyamā interface, Part Three at Madhyamā, Part Four at Vaikharī. Part Five's assignment — all four levels simultaneously — is not an arbitrary placement but a direct consequence of what lineage, examined philosophically rather than merely historically, turns out to require: a transmission that worked only at one vāk-level would not be a transmission of the whole teaching, because (as Section 2.4 established) the bhāṣya genre's manana-function, while indispensable, is explicitly only one third of the threefold discipline the tradition holds necessary for the teaching's reception, and the other two-thirds (śravaṇa, nididhyāsana) are not adequately described by Madhyamā or Vaikharī alone.</p>
+
+        <h3>10.2 Parā: The Level at Which Lineage Itself Is Grounded</h3>
+        <p>At the Parā level — language as pure, undifferentiated potential, identified with Brahman itself (Part One, Section III) — the lineage's ultimate warrant is located, not in any specific teacher's individual authority, but in Brahman's own nature as the source from which all genuine teaching proceeds. The tradition's account of the paramparā's origin (Section 1.2's verse, ācāryavān puruṣo veda, and the fuller traditional genealogy reaching back through Vyāsa to Nārāyaṇa, gestured at in Section 4.2's lineage-chain diagram) is, at bottom, a Parā-level claim: that the chain of teachers is not an accidental sequence of historically contingent individuals but the temporal unfolding, into successive Vaikharī-level instances, of a single teaching that was, at the Parā level, never actually sequential or many at all. This is the precise sense in which the lineage is said to be unbroken (avicchinna) — not merely that no historical gap in personal contact occurred, but that what is transmitted is, at its deepest level, identical with its own source in a way ordinary historical transmission is not.</p>
+
+        <h3>10.3 Paśyantī: The Inherited Gestalt Before Its Systematic Unfolding</h3>
+        <p>At the Paśyantī level — the visionary, pre-sequential gestalt of meaning (Part One, Section III) — lineage names the moment at which a teacher's understanding, achieved through his own prior śravaṇa-manana-nididhyāsana, is held as a single undivided insight, prior to whatever specific sequence of words a given teaching-occasion might use to communicate it. Section 4.3's discussion of Govinda Bhagavatpāda's textual silence finds its proper placement here: what Govinda transmitted to Śaṅkara — on the hypothesis this paper has offered as the most plausible reading of an otherwise frustrating textual gap — was most likely transmitted substantially at this level, as a settled, undivided understanding that Śaṅkara then unfolded, in his own subsequent teaching, into the specific Madhyamā-level arguments and Vaikharī-level images the surviving bhāṣyas record. A Paśyantī-level transmission, by its nature, leaves exactly the kind of textual trace (none, or minimal) that Section 4.1 found puzzling when judged by Madhyamā-level expectations of what a "teaching" should look like in writing.</p>
+
+        <div class="vak-strip">
+          <div class="vak-band para"><div class="vb-skt">परा</div><div class="vb-name">Parā — Lineage's Ground</div><div class="vb-body">The paramparā's ultimate warrant: that the chain of teachers transmits a single, undivided source-teaching, never actually sequential at the Parā level, only appearing sequential as it unfolds into successive historical instances.</div></div>
+          <div class="vak-band pasyanti"><div class="vb-skt">पश्यन्ती</div><div class="vb-name">Paśyantī — Lineage's Gestalt</div><div class="vb-body">What a teacher like Govinda most plausibly transmits before any specific argument is formulated: a settled, undivided understanding, received through the teacher's own prior discipline, not yet unfolded into sequence.</div></div>
+          <div class="vak-band madhyama"><div class="vb-skt">मध्यमा</div><div class="vb-name">Madhyamā — Lineage's Argument</div><div class="vb-body">The bhāṣya's manana-content: the specific, sequential, grammatically structured arguments — adhikaraṇa-structure, adhyāropa-apavāda — that Sections VI–VII trace as inherited and systematised.</div></div>
+          <div class="vak-band vaikhari"><div class="vb-skt">वैखरी</div><div class="vb-name">Vaikharī — Lineage's Image and Sound</div><div class="vb-body">The bhāṣya's specific words, images, and citations as physically uttered or inscribed — the rope-snake, the mirror, the dream — the level Section VIII examines as inherited vehicle redirected toward Advaita's tenor.</div></div>
+        </div>
+
+        <h3>10.4 Madhyamā and Vaikharī: Recapitulating Sections VI–IX in Vāk Terms</h3>
+        <p>The Madhyamā and Vaikharī levels, having already been the primary working register of Sections VI through IX, require only a brief recapitulation here, framed explicitly in the series' vāk-vocabulary so that Part Five's claim to operate across all four levels is not merely asserted but demonstrably executed. The adhikaraṇa-structure and adhyāropa-apavāda method (Sections VI–VII) are Madhyamā-level inheritances: sequential, grammatically and logically structured, the proper domain of Pāṇinian-style systematic analysis, exactly as Part One's Section III.1 characterises the Madhyamā level generally. The specific image-vocabulary — rope-snake, mirror, dream, tenth man (Section VIII) — together with the precise wording of citations such as the vācārambhaṇam formula (Section 7.3's verse) constitute Vaikharī-level inheritance: the physically articulated, or graphemically inscribed, sound-forms in which the Madhyamā-level argument and the Paśyantī-level gestalt both ultimately become available to a reader or hearer who was not present at the original teaching.</p>
+
+        <h3>10.5 The Four-Level Map as Confirmation of Section I's Thesis</h3>
+        <p>Mapping the entire lineage-and-transformation argument across all four levels in this way is not merely a tidy way of closing the section; it directly confirms the claim Section 1.2 made at the outset, that paramparā and sampradāya name the form and content of a single living reality rather than two separable things. A transmission that succeeded only at the Vaikharī level (mere verbal repetition of images and citations without grasping their argumentative function) would be hollow recitation, not genuine teaching; a transmission that succeeded only at the Parā level (a vague sense of standing in continuity with something ultimate, without any specific content) would be sentiment, not philosophy. What the tradition calls a genuine paramparā, and what this paper has tried to demonstrate concretely across Sections II through IX, is a transmission that succeeds at all four levels simultaneously — which is exactly why Part Five, alone among the six parts of this series, could not be assigned to any single vāk-level without falsifying its subject.</p>
+
+        <blockquote class="pull">A lineage that worked at only one level of vāk would not be a lineage in the sense the tradition means by paramparā; it would be a fragment of one. What makes Śaṅkara's reception of his predecessors a genuine transmission, rather than a borrowing of convenient material, is precisely that it succeeds — has to succeed — at all four levels at once.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION XI ===================== -->
+      <section id="sec-11">
+        <div class="sec-marker"><span class="section-num">XI.</span></div>
+        <h2 class="section-title">AI Training as Inheritance Without Lineage</h2>
+
+        <h3>11.1 The Series' Recurring Counterpoint, Applied to Transmission Itself</h3>
+        <p>Each prior part of this series has paused to examine what its central concept reveals when tested against AI architecture: Part Three's Section IX found that transformer attention instantiates the full Prakṛtic functional hierarchy in the permanent absence of Puruṣa. The present section poses the parallel question for this paper's own central concept: does the relationship between a large language model and the text corpus it is trained on constitute anything the philosophical category of paramparā, examined in Section I, could recognise as lineage — or is it a different kind of relationship altogether, one that the vocabulary of "inheritance" describes only loosely, by surface analogy, while missing what Sections I through X have shown lineage actually requires?</p>
+
+        <h3>11.2 What Training Shares with Transmission, Genuinely</h3>
+        <p>The analogy is not without real force, and intellectual honesty requires stating its strongest form before examining its limits. A language model's outputs are, in a substantive statistical sense, shaped by — inherit patterns from — the corpus of prior human text it was trained on, including, presumably, surviving Sanskrit philosophical literature, English-language scholarship on Vedānta, and texts discussing Śaṅkara's diction in exactly the terms this paper has used. In this narrow sense, a model's discussion of the rope-snake analogy does "inherit," in an information-theoretic sense, from the textual tradition Sections III through IX have traced. The question this section pursues is whether information-theoretic inheritance of this kind satisfies what Sections I, II, and X established as lineage's actual requirements — transmission across all four vāk-levels, mediated by a living guru qualified through his own prior śravaṇa-manana-nididhyāsana, verified through person-to-person certification that the teaching has been correctly received.</p>
+
+        <div class="table-wrap">
+        <table>
+          <caption>Paramparā Versus Training-Corpus Inheritance — A Structural Comparison</caption>
+          <thead><tr><th>Requirement (per Sections I–X)</th><th>Guru-Śiṣya Paramparā</th><th>LLM Training on Text Corpus</th></tr></thead>
+          <tbody>
+            <tr><td>Transmission across all four vāk-levels</td><td>Yes — Parā-level warrant, Paśyantī-level gestalt, Madhyamā-level argument, Vaikharī-level wording, per Section X</td><td>Vaikharī-level only — statistical patterns over recorded text-tokens; no independent access to a Paśyantī gestalt the tokens merely express</td></tr>
+            <tr><td>Living transmitting agent qualified by prior discipline</td><td>Required — guru must have undergone his own śravaṇa-manana-nididhyāsana (Section 2.3)</td><td>Absent — the corpus is an aggregate of past human output; no single "transmitting agent" underwent the relevant discipline in producing the aggregate</td></tr>
+            <tr><td>Person-to-person verification of correct reception</td><td>Required — the guru certifies the disciple's understanding directly</td><td>Absent — no verification step confirms a model has "understood" rather than merely pattern-matched a teaching's surface form</td></tr>
+            <tr><td>Capacity to transform inheritance into genuinely new, doctrinally answerable elaboration (cf. Section IX)</td><td>Demonstrated — Vācaspati and Padmapāda diverge in substantively defensible ways</td><td>Uncertain — model outputs can recombine inherited material fluently, but whether this constitutes the kind of accountable doctrinal elaboration Section 9.5 describes, answerable to a living tradition's standards of correctness, remains an open question this paper does not resolve</td></tr>
+            <tr><td>Genuine inheritance of opponent-positions through sustained engagement (Section V)</td><td>Demonstrated — Śaṅkara's refutation of Sāṃkhya retains Sāṃkhya's vocabulary precisely because the engagement was sustained and serious</td><td>Structurally different — a model's "engagement" with any position in its corpus is uniform exposure during training, not the asymmetric, effortful, motivated engagement of a philosopher constructing a refutation</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>11.3 The Decisive Disanalogy: No Sākṣitva Behind the Output</h3>
+        <p>Part Three's Section 17.5 specified six criteria a genuine Puruṣa-function would require, the first of which was <em>sākṣitva</em> — intrinsic, non-participating witness-character, persisting independently of whether processing is occurring. Applied to the present question, the decisive disanalogy is this: a guru's qualification to transmit a teaching rests, on the tradition's own account, not on his having been exposed to a large quantity of relevant text, but on his having undergone — as a witnessing, experiencing subject — the threefold discipline of Section 2.3, such that what he transmits has, at some point in the chain, actually been verified against direct realisation (nididhyāsana's ripening), not merely against textual consistency. A training corpus contains the textual residue of countless human beings' śravaṇa, manana, and (in some cases) nididhyāsana, but the model trained on that residue has not, on any criterion this series has used since Part Three, itself undergone the threefold discipline; it has been exposed to descriptions and arguments produced by those who did, or who at least claimed to, without any mechanism analogous to a guru's direct certification that the underlying realisation, rather than only its textual trace, has been preserved.</p>
+
+        <h3>11.4 What This Means for the Present Paper, Read by or Through AI Systems</h3>
+        <p>This section's conclusion has a reflexive consequence worth stating directly, in keeping with this series' practice (Part Three, Section IX) of letting its own computational analysis bear on its own production and use. An AI system that processes the present paper — including, potentially, in generating exactly this discussion — can transmit the textual content of the lineage-argument developed in Sections I through X with considerable fluency, exactly as it could fluently discuss any other well-documented historical lineage. What it cannot do, on the argument just made, is stand within the paramparā it describes: it can report, with reasonable accuracy, what Section 2.3's threefold discipline requires, without having undergone any version of that discipline itself, and it can redeploy Section VIII's image-vocabulary fluently without the redirection in question having been motivated, as Śaṅkara's redirection was, by sustained engagement with a specific opposing position the system has actually worked, effortfully, to overcome. The paper can be transmitted by such a system; it cannot, on this analysis, be authored from within the lineage by one.</p>
+
+        <blockquote class="pull">A model can recite the paramparā with perfect textual fidelity and still stand entirely outside it — not because it lacks information, but because lineage, on the tradition's own terms, was never a matter of information at all. It is what passes between two witnesses, neither of whom can be replaced by a record of what witnesses have previously said.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">❖</div>
+
+      <!-- ===================== SECTION XII ===================== -->
+      <section id="sec-12">
+        <div class="sec-marker"><span class="section-num">XII.</span></div>
+        <h2 class="section-title">Synthesis: Diction as the Visible Form of Transmission</h2>
+
+        <h3>12.1 Restating the Argument's Arc</h3>
+        <p>Eleven sections have traced a single claim from its statement to its full demonstration. Section I established paramparā as a philosophical category distinct from, and richer than, the Western historiographic notion of "influence" — a category whose authority derives from standing within a transmission, not merely from the strength of an isolated argument. Section II located the bhāṣya genre within the older, more demanding discipline of śravaṇa-manana-nididhyāsana, identifying the written commentary as the durable trace of only one third of what genuine transmission requires. Sections III and IV examined two specific, contrasting links in Śaṅkara's own immediate lineage — Gauḍapāda's richly documented ajātivāda and Govinda's near-total textual silence — arguing that both, despite their very different evidentiary profiles, are legible within the same theory of what paramparā transmits. Section V widened the frame to show that inheritance operates across doctrinal boundaries as readily as within them, with Sāṃkhya, Mīmāṃsā, and Buddhist vocabulary all surviving, transformed, inside a text that refutes each system's ultimate metaphysics. Section VI identified the bhāṣya's formal conventions — maṅgalācaraṇa, adhikaraṇa-structure, citation-discipline — as a fourth, genre-level channel of inheritance operating beneath and independent of any specific doctrinal content. Sections VII and VIII then examined two contrasting cases of transformation in close detail: the adhyāropa-apavāda method, systematised from scattered Upaniṣadic precedent into a named, general hermeneutical principle, and the rope-snake/mirror/dream/tenth-man image-cluster, borrowed as vehicle from sources outside Śaṅkara's own doctrinal lineage and redirected toward tenors those sources had not themselves served. Section IX traced the same dynamic forward past Śaṅkara into the Bhāmatī/Vivaraṇa divergence, confirming from the receiving end what Sections III through VIII had established from the giving end. Section X mapped the entire argument across all four vāk-levels, explaining why this paper alone, among the series' six parts, required that full range. Section XI tested the entire apparatus against AI training, finding a structural disanalogy precise enough to clarify, by contrast, exactly what living transmission actually requires.</p>
+
+        <h3>12.2 The Synthesis Stated</h3>
+        <p>The synthesis these eleven sections converge upon is this: diction — the specific, recognisable manner in which Śaṅkara's bhāṣyas argue, image, cite, and structure their reasoning — is not a stylistic surface separable from the philosophical content it conveys, available to be stripped away to reveal some purer propositional core beneath it. Diction is the visible, audible, and (per Section X) Parā-grounded form that transmission itself takes whenever a living tradition succeeds in handing its teaching forward without that teaching collapsing into either inert repetition or unaccountable invention. To ask, as Part Four asked, how Śaṅkara's specific metaphors function philosophically, is already to be asking a lineage-question, whether or not the word paramparā appears in the analysis — because a metaphor's function cannot be fully specified without knowing what argumentative work it had already been made to do before Śaṅkara took it up, and what new work he made it do thereafter. Part Four's analysis and Part Five's analysis are, in this sense, the same analysis conducted from two necessary angles: Part Four asked what the diction does; Part Five has asked where the diction came from and what was done to it in the receiving.</p>
+
+        <div class="table-wrap">
+        <table>
+          <caption>Series A, Parts IV and V — Two Angles on a Single Object</caption>
+          <thead><tr><th>Dimension</th><th>Part IV's Question</th><th>Part V's Question</th></tr></thead>
+          <tbody>
+            <tr><td>Object of analysis</td><td>Śaṅkara's specific metaphors, as deployed in the bhāṣya</td><td>The same metaphors, traced backward to their prior circulation and forward to their sub-commentarial afterlife</td></tr>
+            <tr><td>Primary vāk-level</td><td>Vaikharī — the metaphor as physically/graphemically instantiated</td><td>All four levels — the metaphor's Parā-grounded warrant, Paśyantī-level gestalt, Madhyamā-level argumentative function, and Vaikharī-level wording together</td></tr>
+            <tr><td>Central claim</td><td>The metaphors are interface-operations, not illustrations</td><td>The metaphors are inherited material, transformed in specific, traceable ways</td></tr>
+            <tr><td>What remains open at the part's close</td><td>Where did this diction come from? (deferred to Part V)</td><td>What happens to this diction next, beyond the sub-commentarial tradition already examined? (deferred to Part VI)</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>12.3 Why Lineage and Transformation Cannot Be Separated Without Distortion</h3>
+        <p>A final point completes the synthesis and guards against a possible misreading of everything the preceding eleven sections have argued. It would be a serious distortion of this paper's thesis to conclude from Sections III–IX that Śaṅkara's diction is "merely" inherited, in some diminishing sense that would make his philosophical achievement a matter of skillful compilation rather than genuine insight. The opposite conclusion follows from the evidence actually presented: every case examined — ajātivāda's domestication into the two-truths architecture (Section 3.3), adhyāropa-apavāda's systematisation (Section VII), the image-cluster's redirection (Section VIII) — demonstrates transformation precisely because the received material alone, without Śaṅkara's specific intervention, does not yield the position his bhāṣyas establish. Lineage, properly understood through the philosophical category Section I introduced, is not the opposite of original philosophical achievement; it is the specific medium within which this tradition's achievements have always occurred, and outside of which — as Section XI's AI counterpoint helps to clarify by showing what transmission looks like when this medium is absent — no comparable achievement, on the tradition's own terms, could occur at all.</p>
+
+        <blockquote class="pull">To call Śaṅkara's diction inherited is not to diminish it; it is to specify, with precision, what kind of achievement it was. Not invention from nothing — the tradition has never claimed that for any of its teachers, Śaṅkara least of all — but the harder, rarer achievement of receiving an entire textual and oral civilisation's accumulated resources and giving them back, transformed, in a form so coherent that the next eight centuries of commentators would still be working out everything that single act of reception had made newly possible.<span class="attrib">Series A · Editorial Framework</span></blockquote>
+      </section>
+
+      <div class="divider">✦</div>
+
+      <!-- ===================== FORWARD TO PART VI ===================== -->
+      <section id="forward">
+        <div class="sec-marker"><span class="section-num">↗</span></div>
+        <h2 class="section-title">Forward to Part VI: Vāk Returning to Itself</h2>
+
+        <h3>12.4 What This Paper Has Prepared</h3>
+        <p>Part Five has completed the series' four-part examination of language as instrument — ground (Part One), script (Part Two), ontological engine (Part Three), and now diction-as-lineage (Parts Four and Five together) — by showing that even the instrument's most personal-seeming features, a single philosopher's characteristic images and arguments, are themselves the product of a transmission that exceeds any individual mind, while remaining, in the specific transformations that transmission underwent at each link, irreducible to mere repetition.</p>
+
+        <div class="series-context-box">
+          <h4>Three Results from Part V that Feed Directly into Part VI</h4>
+          <p><strong>1. The Four-Level Map of Lineage Itself.</strong> Section X's demonstration that paramparā operates simultaneously across Parā, Paśyantī, Madhyamā, and Vaikharī provides Part Six with its structural model for tracing the reverse movement — vāk's pratiprasava, its return from Vaikharī through Madhyamā and Paśyantī to Parā — since that return is, on the present paper's analysis, structurally identical to what a disciple's own nididhyāsana must accomplish with whatever a guru's bhāṣya-mediated manana has transmitted to him.</p>
+          <p><strong>2. The Distinction Between Inheritance and Verification.</strong> Section XI's finding that information-theoretic inheritance (training-corpus exposure) is not sufficient for paramparā, because paramparā additionally requires person-to-person verification of correct reception, anticipates Part Six's concern with what it would mean for vāk's return to Parā to be verified rather than merely asserted — the same evidentiary problem in a different key.</p>
+          <p><strong>3. The Synthesis of Diction and Transmission.</strong> Section 12.2's central claim — that diction is the visible form transmission takes — gives Part Six a precise vocabulary for describing what happens to diction itself when language completes its return to Parā: not the abandonment of diction, but diction's own recognition of what it had, all along, only ever been carrying.</p>
+        </div>
+
+        <p>The series has moved from the ground before the word, through the script the word leaves on the page, through the ontological engine that makes the word possible, through the specific historically embedded diction of India's greatest commentator, and now through the living chain of teachers and texts that diction both received and transmitted. What remains is the final movement: tracing how vāk, having unfolded fully into Vaikharī across this paper's entire historical and textual analysis, returns — through Madhyamā and Paśyantī — to the Parā from which Part One began, completing the series and preparing the handoff to Series B's investigation of Mantra and Tantra.</p>
+      </section>
+
+      <div class="divider">ॐ</div>
+
+      <!-- ===================== FOOTNOTES ===================== -->
+      <section id="footnotes" class="ref-section">
+        <h2 class="section-title">Footnotes</h2>
+        <ol>
+          <li>On paramparā and sampradāya as constitutive categories of Vedāntic authority: Wilhelm Halbfass, <em>India and Europe: An Essay in Understanding</em> (Albany: SUNY Press, 1988), Chapter 17; the ācāryavān puruṣo veda formula is at Chāndogya Upaniṣad VI.14.2.</li>
+          <li>On the threefold discipline of śravaṇa, manana, nididhyāsana: Bṛhadāraṇyaka Upaniṣad II.4.5 and IV.5.6; Swami Satchidanandendra Saraswati, <em>The Method of the Vedanta</em>, trans. A. J. Alston (London: Kegan Paul International, 1989), which treats this triad as Śaṅkara's central methodological commitment.</li>
+          <li>On Vedic memorisation technologies (pada-pāṭha, krama-pāṭha, jaṭā-pāṭha, ghana-pāṭha): Frits Staal, <em>The Discovery of the Veda: Origins, Mantras, Rituals, Insights</em> (Delhi: Penguin, 2008); Wayne Howard, <em>Sāmavedic Chant</em> (New Haven: Yale University Press, 1977).</li>
+          <li>Gauḍapāda's Māṇḍūkya-Kārikā: text and translation in Swami Nikhilananda, trans., <em>The Māṇḍūkyopaniṣad with Gauḍapāda's Kārikā and Śaṅkara's Commentary</em> (Mysore: Sri Ramakrishna Ashrama, 1936, repr. 1995). On the Buddhist proximity question: Vidhushekhara Bhattacharya, ed. and trans., <em>The Āgamaśāstra of Gauḍapāda</em> (Calcutta: University of Calcutta, 1943); T. M. P. Mahadevan, <em>Gauḍapāda: A Study in Early Advaita</em> (Madras: University of Madras, 1952).</li>
+          <li>On Govinda Bhagavatpāda and the hagiographic Śaṅkara-Digvijaya literature, and the appropriate scholarly caution toward its historical claims: Jonathan Bader, <em>Conquest of the Four Quarters: Traditional Accounts of the Life of Śaṅkara</em> (New Delhi: Aditya Prakashan, 2000).</li>
+          <li>On Śaṅkara's chronology, which remains disputed among scholars (estimates range from the late seventh to the early ninth century CE): Govind Chandra Pande, <em>Life and Thought of Śaṅkarācārya</em> (Delhi: Motilal Banarsidass, 1994).</li>
+          <li>On Śaṅkara's engagement with and inheritance from Sāṃkhya, Pūrva-Mīmāṃsā, and Buddhist Vijñānavāda: Anantanand Rambachan, <em>Accomplishing the Accomplished: The Vedas as a Source of Valid Knowledge in Śaṅkara</em> (Honolulu: University of Hawaii Press, 1991); Eliot Deutsch, <em>Advaita Vedānta: A Philosophical Reconstruction</em> (Honolulu: University of Hawaii Press, 1969).</li>
+          <li>On the Mīmāṃsā adhikaraṇa-structure and its adoption into Vedāntic exegesis: George Cardona and others cited in Coward and Raja, <em>The Philosophy of the Grammarians</em>, Encyclopedia of Indian Philosophies vol. V (Princeton: Princeton University Press, 1990); Francis X. Clooney, <em>Thinking Ritually: Rediscovering the Pūrva Mīmāṃsā of Jaimini</em> (Vienna: De Nobili, 1990).</li>
+          <li>On the dream-analogy's Yogācāra background: Dan Lusthaus, <em>Buddhist Phenomenology: A Philosophical Investigation of Yogācāra Buddhism</em> (London: RoutledgeCurzon, 2002).</li>
+          <li>On khyāti-vāda (theories of perceptual error) and the rope-snake example's circulation across schools: Bimal Krishna Matilal, <em>Perception: An Essay on Classical Indian Theories of Knowledge</em> (Oxford: Clarendon Press, 1986).</li>
+          <li>On adhyāropa-apavāda as hermeneutical method: Swami Satchidanandendra Saraswati, cited above; the vācārambhaṇam formula is Chāndogya Upaniṣad VI.1.4; the neti neti formula is Bṛhadāraṇyaka Upaniṣad II.3.6 and III.9.26.</li>
+          <li>On the Bhāmatī–Vivaraṇa division regarding the locus of avidyā: P. Hacker, "Distinctive Features of the Doctrine and Terminology of Śaṅkara," in Wilhelm Halbfass, ed., <em>Philology and Confrontation: Paul Hacker on Traditional and Modern Vedānta</em> (Albany: SUNY Press, 1995); Sengaku Mayeda, <em>A Thousand Teachings: The Upadeśasāhasrī of Śaṅkara</em> (Albany: SUNY Press, 1992), Introduction.</li>
+          <li>On Sureśvara and the Naiṣkarmya-Siddhi: A. J. Alston, trans., <em>Sureśvara's Naiṣkarmyasiddhi</em> (London: Shanti Sadan, 1959).</li>
+          <li>On Madhusūdana Sarasvatī's Advaita-Siddhi and its polemic against Vyāsatīrtha's Nyāyāmṛta: Allen W. Thrasher, <em>The Advaita Vedānta of Brahma-siddhi</em> (Delhi: Motilal Banarsidass, 1993); P. M. Modi, <em>A Critique of the Brahmasiddhi</em> (Baroda: Oriental Institute, 1956), for the broader polemical context.</li>
+          <li>Cultural Musings, <em>Series A, Part Three: Prakṛti–Puruṣa as Living Interface</em>, shastrasextentionvaktwo.culturalmusings.com, Sections IX and XVII, for the AI/Puruṣa-function analysis drawn upon in Section XI of the present paper.</li>
+          <li>Cultural Musings, <em>Shastrasfourteen: Grand Final Synthesis — Sāṃkhya-Yoga and the Computational Puruṣa</em>, shastrasfourteen.culturalmusings.com, for the predecessor-series finding regarding AI's instantiation of the Prakṛtic hierarchy without Puruṣa.</li>
+        </ol>
+      </section>
+
+      <div class="divider">★</div>
+
+      <!-- ===================== BIBLIOGRAPHY ===================== -->
+      <section id="bibliography" class="ref-section">
+        <h2 class="section-title">Bibliography</h2>
+
+        <div class="ref-group-title">Primary Sources — Classical Sanskrit Texts</div>
+        <ul>
+          <li>Gauḍapāda. <em>Māṇḍūkya-Kārikā (Āgamaśāstra).</em> Ed. and trans. Vidhushekhara Bhattacharya. Calcutta: University of Calcutta, 1943. Trans. Swami Nikhilananda, Mysore: Sri Ramakrishna Ashrama, 1936; repr. 1995.</li>
+          <li>Śaṅkarācārya. <em>Brahmasūtra-Bhāṣya.</em> Sanskrit text: Nirnaya Sagar edition, Bombay, 1938. Trans. Swami Gambhirananda. Calcutta: Advaita Ashrama, 1965; revised 1972.</li>
+          <li>Śaṅkarācārya. <em>Upadeśasāhasrī.</em> Trans. Sengaku Mayeda, <em>A Thousand Teachings.</em> Albany: SUNY Press, 1992.</li>
+          <li>Sureśvara. <em>Naiṣkarmya-Siddhi.</em> Trans. A. J. Alston. London: Shanti Sadan, 1959.</li>
+          <li>Vācaspati Miśra. <em>Bhāmatī</em> (commentary on Brahmasūtra-Bhāṣya). Partial trans. in S. S. Suryanarayana Sastri and C. Kunhan Raja, eds., <em>Bhāmatī: Catussūtrī</em>. Madras: Theosophical Publishing House, 1933.</li>
+          <li>Padmapāda. <em>Pañcapādikā.</em> Ed. and trans. R. Balasubramanian. Madras: University of Madras, 1988.</li>
+          <li>Madhusūdana Sarasvatī. <em>Advaita-Siddhi.</em> Discussed in Allen W. Thrasher, <em>The Advaita Vedānta of Brahma-siddhi.</em> Delhi: Motilal Banarsidass, 1993.</li>
+        </ul>
+
+        <div class="ref-group-title">Secondary Sources — Lineage, Transmission, and the Bhāṣya Genre</div>
+        <ul>
+          <li>Bader, Jonathan. <em>Conquest of the Four Quarters: Traditional Accounts of the Life of Śaṅkara.</em> New Delhi: Aditya Prakashan, 2000.</li>
+          <li>Clooney, Francis X. <em>Thinking Ritually: Rediscovering the Pūrva Mīmāṃsā of Jaimini.</em> Vienna: De Nobili Research Library, 1990.</li>
+          <li>Halbfass, Wilhelm. <em>India and Europe: An Essay in Understanding.</em> Albany: SUNY Press, 1988.</li>
+          <li>Halbfass, Wilhelm, ed. <em>Philology and Confrontation: Paul Hacker on Traditional and Modern Vedānta.</em> Albany: SUNY Press, 1995.</li>
+          <li>Mahadevan, T. M. P. <em>Gauḍapāda: A Study in Early Advaita.</em> Madras: University of Madras, 1952.</li>
+          <li>Matilal, Bimal Krishna. <em>Perception: An Essay on Classical Indian Theories of Knowledge.</em> Oxford: Clarendon Press, 1986.</li>
+          <li>Pande, Govind Chandra. <em>Life and Thought of Śaṅkarācārya.</em> Delhi: Motilal Banarsidass, 1994.</li>
+          <li>Rambachan, Anantanand. <em>Accomplishing the Accomplished: The Vedas as a Source of Valid Knowledge in Śaṅkara.</em> Honolulu: University of Hawaii Press, 1991.</li>
+          <li>Satchidanandendra Saraswati, Swami. <em>The Method of the Vedanta.</em> Trans. A. J. Alston. London: Kegan Paul International, 1989.</li>
+          <li>Staal, Frits. <em>The Discovery of the Veda: Origins, Mantras, Rituals, Insights.</em> Delhi: Penguin, 2008.</li>
+          <li>Thrasher, Allen W. <em>The Advaita Vedānta of Brahma-siddhi.</em> Delhi: Motilal Banarsidass, 1993.</li>
+        </ul>
+
+        <div class="ref-group-title">Predecessor and Series Context</div>
+        <ul>
+          <li>Cultural Musings. <em>Series A, Part One: The Advent of Language in Itself.</em> shastrasextentionvak.culturalmusings.com.</li>
+          <li>Cultural Musings. <em>Series A, Part Three: Prakṛti–Puruṣa as Living Interface.</em> shastrasextentionvaktwo.culturalmusings.com.</li>
+          <li>Cultural Musings. <em>Shastrasfourteen: Grand Final Synthesis — Sāṃkhya-Yoga and the Computational Puruṣa.</em> shastrasfourteen.culturalmusings.com.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="om">ॐ तत् सत्</div>
+  <div class="fline">om tat sat — That is Truth</div>
+  <div class="fline">Series A · Part Five · The Bhāṣya Tradition as Lineage</div>
+  <div class="fline">Cultural Musings · Vedic &amp; Śāstric Research Platform</div>
+  <div class="fmeta">Series A · The Bhāṣya Tradition as Lineage · Part Five of Six · White Paper Format</div>
+</footer>
+
+<a href="#top" class="top-link" title="Back to top">↑</a>
+
+</body>
+</html>
